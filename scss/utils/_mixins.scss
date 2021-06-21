@@ -1,0 +1,32 @@
+@mixin flex_column {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+@mixin flex_center {
+    display: flex;
+    justify-content: center;
+}
+
+@mixin header {
+    font-family: $main-font;
+    font-size: 1.3em;
+    background-color: $primary-color;
+    height: auto;
+}
+
+@mixin main {
+    background-color: $body_color;
+    margin: auto;
+    padding-bottom: 40px;
+}
+
+@mixin footer {
+    margin: auto;
+    height: auto;
+    background-color: $secondary-color;
+    color: $main-color;
+    position: sticky;
+    bottom: 0;
+}

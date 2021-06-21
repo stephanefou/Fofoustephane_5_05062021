@@ -1,0 +1,136 @@
+@import "./utils/_variables.scss";
+@import "./utils/_mixins.scss";
+@import "./utils/_responsive.scss";
+
+body {
+    margin: auto;
+}
+
+header {
+    @include header;
+    .header{
+        display: flex;
+        justify-content: space-between;
+        margin: auto;
+        padding: 5px;
+    }
+    a img{
+        max-width: max-content;
+        display: inline-block;
+        padding-left: 30px;
+        margin: auto;
+    }
+
+    .fa-shopping-basket {
+        padding-right: 15px;
+    }
+
+    .panier {
+        text-decoration: none;
+        color: $main-color;
+        font-family: $main-font;
+        margin: auto 30px auto 5px;
+        text-align: right;
+        opacity: 0.9;
+        transform: scale(0.9);
+        transition: transform 300ms ease-in-out;
+        &:hover {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+}
+
+.banner-top {
+    height: 30px;
+    background-color: $main-color;
+}
+
+main {
+    @include main;
+    h1 {
+        font-family: $main-font;
+        font-size: 2em;
+        color: $section-color;
+        text-align: center;
+        margin: auto;
+        padding-top: 20px;
+    }
+    h2 {
+        font-family: $main-font;
+        color: $main-color;
+        text-align: center;
+        margin: auto;
+        font-size: 1.2em;
+        font-weight: lighter;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+}
+
+.logo {
+    opacity: 0.9;
+    transform: scale(0.9);
+    transition: transform 300ms ease-in-out;
+    &:hover {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+footer {
+    @include footer;
+    @include flex_column;
+    h2 {
+        font-family: $main-font;
+        font-size: 1em;
+        font-weight: 400;
+        color: #fff;
+        text-align: center;
+        margin: auto;
+        padding-top: 10px;
+        padding-bottom: 8px;
+    }
+
+    div {
+        width: 150px;
+        margin: 15px auto;
+        padding: 10px 30px;
+        background-color: #fff;
+        text-align: center;
+        a {
+            color: $section-color;
+            margin: auto;
+            padding-bottom: 12px;
+            font-family: $main-font;
+            font-size: 0.9em;
+            &:hover{
+                color: $main-color;
+            }
+        }
+    }
+}
+
+.home {
+    button{
+        display: flex;
+        margin: auto auto 30px auto;
+        padding: 10px;
+        border-radius: 15px;
+        border: none;
+        background-color: #38332E;
+        font-family: $main-font;
+        font-size: 1em;
+        font-weight: 500;
+        color: #fff;
+        transition: background-color 300ms ease-in-out;
+        &:hover {
+            background-color: #FF7E00;
+        }
+        a {
+            text-decoration: none;
+            color: $body-color;
+        }
+    }
+}

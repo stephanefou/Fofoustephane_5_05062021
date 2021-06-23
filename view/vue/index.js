@@ -17,7 +17,7 @@ fetch("http://localhost:3000/api/teddies/")
         for(let jsonProduct of jsonListProduct){
             let product = new Product(jsonProduct);
             document.getElementById("teddies").innerHTML += `<article>
-                                                                <a href="produit.html" title="'Ours en peluche ${product.name}'">
+                                                                <a href="/view/produit/produit.html/?id=${product._id}" title="'Ours en peluche ${product.name}'">
                                                                     <div class="div-img">
                                                                         <img class="article-card__photo" src="${product.imageUrl}" alt="Ours en peluche brun fait main">
                                                                     </div>

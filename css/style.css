@@ -133,7 +133,7 @@ footer div a:hover {
 }
 /*----------------------------------------------*/
 #teddies {
-  padding: 0 200px;
+  padding: 0 150px;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
@@ -161,17 +161,14 @@ footer div a:hover {
 }
 /*----------------------------------------------*/
 article {
-  width: 230px;
+  width: 220px;
   height: 350px;
-  border-radius: 20px;
+  border-radius: 5px;
   background-color: #fff;
   overflow: hidden;
   box-shadow: 2px 2px 10px #e8e6eb;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   margin-bottom: 17px;
-}
-
-article .div-img {
   padding: 5px;
 }
 

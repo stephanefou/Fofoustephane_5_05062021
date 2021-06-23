@@ -131,6 +131,13 @@ footer div a {
 footer div a:hover {
   color: #38332E;
 }
+/*----------------------------------------------*/
+#teddies {
+  padding: 0 200px;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
 
 .home button {
   display: flex;
@@ -152,7 +159,7 @@ footer div a:hover {
   text-decoration: none;
   color: #F1F1F1;
 }
-
+/*----------------------------------------------*/
 article {
   width: 230px;
   height: 350px;
@@ -173,6 +180,8 @@ article img {
   height: 166px;
   object-fit: cover;
 }
+
+
 
 @media (max-width: 760px)  {
   .quote-display-none {

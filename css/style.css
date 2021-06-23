@@ -190,12 +190,12 @@ article img {
 }*/
   display: flex;
   justify-content: center;
+  margin: 20px 0;
 }
 
 .div-img-product{
   margin-right: 20px;
   padding: 5px;
-  border-left: /*main-color*/solid #38332E;
 }
 
 .product__photo {

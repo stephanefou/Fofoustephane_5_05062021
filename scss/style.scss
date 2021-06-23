@@ -42,8 +42,21 @@ header {
 }
 
 .banner-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     height: 30px;
     background-color: $main-color;
+    padding: 0 30px;
+    .quote {
+        color: #ADADAD;
+    }
+    .tel {
+        color: #fff
+    }
+    .fa-phone-alt {
+        padding-right: 10px;
+    }
 }
 
 main {
@@ -132,5 +145,11 @@ footer {
             text-decoration: none;
             color: $body-color;
         }
+    }
+}
+
+@media (max-width: 760px)  {
+    .quote-display-none {
+      display: none;
     }
 }

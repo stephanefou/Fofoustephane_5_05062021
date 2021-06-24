@@ -179,7 +179,7 @@ article img {
 }
 
 .main-product {
-  padding:0 180px;
+  padding:20px 0;
   background-color: #fff;
 }
 
@@ -198,11 +198,19 @@ article img {
   padding: 5px;
 }
 
-.product__photo {
+.product-photo {
   width: 400px;
   height: auto;
 }
 
+.product-info {
+  width: 350px;
+  height: auto;
+}
+
+.product-info h2 {
+  text-align: start;
+}
 @media (max-width: 760px)  {
   .quote-display-none {
     display: none;

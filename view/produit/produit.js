@@ -1,3 +1,4 @@
+//Récupération de l'id
 const url_string = window.location.href;
 const url = new URL(url_string);
 const id = url.searchParams.get("id");
@@ -14,26 +15,122 @@ fetch("http://localhost:3000/api/teddies/" + id)
     .then(data => data.json())
     .then(product => {
         console.log(product)
-        document.getElementById("produit").innerHTML += `<div class="div-img-product">
-                                                            <img class="product__photo" src="../../img/teddy_1.jpg" alt="Ours en peluche ${product.name}">
-                                                        </div>
-                                                        <div>
-                                                            <h3 class="title">Ours en peluche ${product.name}</h3>
-                                                            <p class="description">${product.description}</p>
-                                                            <span price>${product.price}</span>
-                                                            <div class="form">
-                                                                <div class="color_choice">
-                                                                    <label for="Choix de couleurs pour ${product.name}">Choix de la couleur : </label>
-                                                                    <select name="Choix de couleurs pour ${product.name}" id="select_1 ">
-                                                                        <option value="Tan">Tan</option>
-                                                                        <option value="Chocolate">Chocolate</option>
-                                                                        <option value="Black">Black</option>
-                                                                        <option value="White">White</option>
-                                                                    </select>
-                                                                </div>
-                                                                <button type="submit" name="addToCart" id="submit">Ajouter au panier</button>
-                                                            </div>
-                                                        </div>`;
+
+        // création div produit
+        const productMain = document.getElementById('produit');
+        /*const productH2 = document.createElement('h2');
+        product.appendChild(productH2);
+        teddyH2.textContent = "Oribears vous présente " + teddy.name;*/
+
+        // création div de l'ourson
+        const productDivImg = document.createElement('div');
+        productMain.appendChild(productDivImg);
+        productDivImg.className = 'div-img-product';
+
+        //ajout image à la div ourson
+        const productImg = document.createElement('img');
+        productDivImg.appendChild(productImg);
+        productImg.className = 'product-photo';
+        productImg.setAttribute('src', product.imageUrl);
+        productImg.setAttribute('alt', 'Ours en peluche ' + product.name);
+        productImg.setAttribute('title', 'Ours en peluche ' + product.name);
+
+        //création div de présentation
+        const productDivInfo = document.createElement('div');
+        productMain.appendChild(productDivInfo);
+        productDivInfo.className = 'product-info';
+
+        // ajout nom teddy en titre H2
+        const productH2 = document.createElement('h2');
+        productDivInfo.appendChild(productH2);
+        productH2.textContent = 'Ours en peluche' + product.name;
+
+        // Description
+        const productDescription = document.createElement('p');
+        productDivInfo.appendChild(productDescription);
+        productDescription.className = 'description';
+        productDescription.textContent = product.description;
+
+        // Prix
+        const productPrice = document.createElement('p');
+        productDivInfo.appendChild(productPrice);
+        productPrice.className = 'product-price';
+        productPrice.textContent = product.price / 100 + '€';
+
+        // Choix de la couleur
+        const form = document.createElement('form');
+        productDivInfo.appendChild(form);
+        const colorChoiceDiv = document.createElement('div');
+        form.appendChild(colorChoiceDiv);
+        colorChoiceDiv.className = 'color-choice';
+
+        const label = document.createElement('label');
+        colorChoiceDiv.appendChild(label);
+        label.textContent = "choisir une couleur : ";
+        label.setAttribute('for', "Quelle couleur pour " + product.name + " ?");
+
+        const colorSelect = document.createElement('select');
+        colorChoiceDiv.appendChild(colorSelect);
+        colorSelect.setAttribute('name', "Quelle couleur pour " + product.name + " ?");
+        colorSelect.setAttribute('id', "selection ");
+
+        // Couleurs disponible par produit
+        const colors = product.colors;
+
+        for (i = 0; i < colors.length; i++) {
+            const colorSelectOption = document.createElement('option');
+            colorSelect.appendChild(colorSelectOption);
+            colorSelectOption.textContent = colors[i];
+            colorSelectOption.setAttribute("value", colors[i]);
+        }
+
+        // création bouton panier
+        let addProduct = document.createElement('button');
+        form.appendChild(addProduct);
+        addProduct.type = 'submit';
+        addProduct.name = 'addToCart';
+        addProduct.id = 'submit';
+        addProduct.textContent = "Ajouter au panier"
+
+        // récupérations données et envoie au panier
+        addProduct.addEventListener("click", function (event) {
+            event.preventDefault();
+
+        // stockage des données du/des teddy souhaité dans localStorage
+            let selectedProducts = {
+                productName: product.name,
+                productId: product._id,
+                productColor: colorSelect.value, /*-selectColorOption ne marche pas...-------------------*/
+                quantity: 1,
+                productPrice: product.price / 100,
+            };
+            console.log(selectedProducts);
+
+            let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
+            const productColor = colorSelect.value; /*-selectColorOption ne marche pas...-------------------*/
+            if(storedProducts) {
+                storedProducts.push(selectedProducts);
+                localStorage.setItem('newArticle', JSON.stringify(storedProducts));
+                console.log(storedProducts);
+                if (window.confirm(product.name + " " + productColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+                    window.location.href = "view/panier/panier.html";
+                } else {
+                    window.location.href = "view/vue/index.html";
+                }
+            } else {
+                storedProducts = [];
+                storedProducts.push(selectedProducts);
+                localStorage.setItem('newArticle', JSON.stringify(storedProducts));
+                console.log(storedProducts);
+                if (window.confirm(product.name + " " + productColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+                    window.location.href = "view/panier/panier.html";
+                } else {
+                    window.location.href = "view/vue/index.html";
+                }
+            }
+        });
     });
 
 
+/*
+*/

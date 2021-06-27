@@ -87,7 +87,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
         addProduct.type = 'submit';
         addProduct.name = 'addToCart';
         addProduct.id = 'submit';
-        addProduct.textContent = "Ajouter au panier";
+        addProduct.textContent = "AJOUTER AU PANIER";
 
         const addProductIcon = document.createElement('i');
         form.appendChild(addProductIcon);

@@ -33,7 +33,7 @@ if(storedProducts == null || storedProducts.length === 0){
 
         const productPrice = document.createElement('div');
         eachProduct.appendChild(productPrice);
-        productPrice.className = 'product_price';
+        productPrice.className = 'product-price';
         productPrice.id = i++;
 
         const price = document.createElement('p');
@@ -51,17 +51,17 @@ if(storedProducts == null || storedProducts.length === 0){
         deleteButtonIcon.className = 'far fa-times-circle';
 
     };
-    // on récupère l'article associé au bouton de suppression
+    // Récupération de l'article associé au bouton de suppression
     let deleteButton = document.getElementsByClassName('delete-button');
     for (let i = 0 ; i < deleteButton.length; i++) {
         deleteButton[i].addEventListener('click' , function (event) { 
             event.preventDefault();
             let id = this.closest('.product-price').id;
 
-            //on supprime l'article du localStorage
+            //Suppression de l'article du localStorage
             storedProducts.splice(id, 1);
 
-            //on enregistre le nouveau localStorage
+            //Enregistrement du nouveau localStorage
             localStorage.setItem('newArticle', JSON.stringify(storedProducts));
             JSON.parse(localStorage.getItem('newArticle'));
 

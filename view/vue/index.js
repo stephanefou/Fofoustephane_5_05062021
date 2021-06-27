@@ -23,24 +23,15 @@ fetch("http://localhost:3000/api/teddies/")
                                                                     </div>
                                                                     <div class="article-card__title">
                                                                         <h3>Ours en peluche ${product.name}</h3>
-                                                                        <div>
-                                                                            <p><i class="fas fa-check"></i>EN STOCK</p>
-                                                                            <span class="article-card__price">${product.price/100} €</span>
-                                                                        </div>
+                                                                    </div>
+                                                                    <div class="article-card__info">
+                                                                        <p><i class="fas fa-check"></i>EN STOCK</p>
+                                                                        <span class="article-card__price">${product.price/100} €</span>
                                                                     </div>
                                                                 </a>
                                                             </article>`;
         }
     });
-    
-
-/*class ProductManager {
-    constructor(listProduct){
-        this.listProduct = listProduct;
-    }
-}*/
-
-
 
 
 

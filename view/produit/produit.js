@@ -18,9 +18,6 @@ fetch("http://localhost:3000/api/teddies/" + id)
 
         // création div produit
         const productMain = document.getElementById('produit');
-        /*const productH2 = document.createElement('h2');
-        product.appendChild(productH2);
-        teddyH2.textContent = "Oribears vous présente " + teddy.name;*/
 
         // création div de l'ourson
         const productDivImg = document.createElement('div');
@@ -43,7 +40,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
         // ajout nom teddy en titre H2
         const productH2 = document.createElement('h2');
         productDivInfo.appendChild(productH2);
-        productH2.textContent = 'Ours en peluche' + product.name;
+        productH2.textContent = 'Ours en peluche ' + product.name;
 
         // Description
         const productDescription = document.createElement('p');
@@ -66,13 +63,13 @@ fetch("http://localhost:3000/api/teddies/" + id)
 
         const label = document.createElement('label');
         colorChoiceDiv.appendChild(label);
-        label.textContent = "choisir une couleur : ";
-        label.setAttribute('for', "Quelle couleur pour " + product.name + " ?");
+        label.textContent = "Choisir une couleur :";
+        label.setAttribute('for', "selection");     /* for de #selection, attribut non affiché! */
 
         const colorSelect = document.createElement('select');
         colorChoiceDiv.appendChild(colorSelect);
-        colorSelect.setAttribute('name', "Quelle couleur pour " + product.name + " ?");
-        colorSelect.setAttribute('id', "selection ");
+        colorSelect.setAttribute('name', "Quelle couleur pour" + product.name + "?"); /* colorSelectName, attibut non affiché donc variable dispensable */
+        colorSelect.setAttribute('id', "selection");
 
         // Couleurs disponible par produit
         const colors = product.colors;
@@ -90,7 +87,11 @@ fetch("http://localhost:3000/api/teddies/" + id)
         addProduct.type = 'submit';
         addProduct.name = 'addToCart';
         addProduct.id = 'submit';
-        addProduct.textContent = "Ajouter au panier"
+        addProduct.textContent = "Ajouter au panier";
+
+        const addProductIcon = document.createElement('i');
+        form.appendChild(addProductIcon);
+        addProductIcon.className = 'fas fa-plus-circle';
 
         // récupérations données et envoie au panier
         addProduct.addEventListener("click", function (event) {
@@ -100,14 +101,31 @@ fetch("http://localhost:3000/api/teddies/" + id)
             let selectedProducts = {
                 productName: product.name,
                 productId: product._id,
-                productColor: colorSelect.value, /*-selectColorOption ne marche pas...-------------------*/
+                productColor: colorSelect.value, 
                 quantity: 1,
                 productPrice: product.price / 100,
             };
             console.log(selectedProducts);
 
             let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
-            const productColor = colorSelect.value; /*-selectColorOption ne marche pas...-------------------*/
+            const productColor = colorSelect.value;
+            if(storedProducts == null)
+                storedProducts = [];
+                storedProducts.push(selectedProducts);
+                localStorage.setItem('newArticle', JSON.stringify(storedProducts));
+                console.log(storedProducts);
+                if (window.confirm(product.name + " " + productColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+                    window.location.href = "../panier/panier.html";
+                } else {
+                    window.location.href = "../vue/index.html";
+                }
+        });
+    });
+
+
+/* Pour éviter d'avoir un tableau null... existait à partir de la ligne 106 jusqu'à la fin*//*
+ let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
+            const productColor = colorSelect.value;
             if(storedProducts) {
                 storedProducts.push(selectedProducts);
                 localStorage.setItem('newArticle', JSON.stringify(storedProducts));
@@ -128,9 +146,4 @@ fetch("http://localhost:3000/api/teddies/" + id)
                     window.location.href = "view/vue/index.html";
                 }
             }
-        });
-    });
-
-
-/*
 */

@@ -101,7 +101,8 @@ fetch("http://localhost:3000/api/teddies/" + id)
             let selectedProducts = {
                 productName: product.name,
                 productId: product._id,
-                productColor: colorSelect.value, 
+                productColor: colorSelect.value,
+                productImg: product.imageUrl,
                 quantity: 1,
                 productPrice: product.price / 100,
             };

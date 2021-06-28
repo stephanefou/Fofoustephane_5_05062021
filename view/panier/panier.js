@@ -17,7 +17,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const emptyCart = document.createElement('p');
     productStoredDiv.appendChild(emptyCart);
     emptyCart.className = "empty-cart";
-    emptyCart.textContent = "Votre panier est  vide."
+    emptyCart.textContent = "Votre panier est vide..."
 } else {
     // si des éléments sont présents dans le panier : récupération des éléments du panier
     let i = 0;
@@ -25,18 +25,28 @@ if(storedProducts == null || storedProducts.length === 0){
         const eachProduct = document.createElement('div');
         productStoredDiv.appendChild(eachProduct);
         eachProduct.className = 'each-product';
+
+        const cartDivImg = document.createElement('div');
+        eachProduct.appendChild(cartDivImg);
+        cartDivImg.className = 'div-img-cart';
         
+        const cartImg = document.createElement('img');
+        cartDivImg.appendChild(cartImg);
+        cartImg.className = 'cart-photo';
+        cartImg.setAttribute('src', storedProduct.productImg);
+        cartImg.setAttribute('alt', 'Ours en peluche ' + storedProduct.productName);
+        cartImg.setAttribute('title', 'Ours en peluche ' + storedProduct.productName);
 
         const productsCart = document.createElement('p');
         eachProduct.appendChild(productsCart);
-        productsCart.textContent = storedProduct.quantity + " " + storedProduct.productName + " , " + storedProduct.productColor;
+        productsCart.textContent = storedProduct.quantity + "x " + storedProduct.productName + " , " + storedProduct.productColor;
 
         const productPrice = document.createElement('div');
         eachProduct.appendChild(productPrice);
         productPrice.className = 'product-price';
-        productPrice.id = i++;
+        productPrice.id = i++; /* ----------------------------------*/
 
-        const price = document.createElement('p');
+        const price = document.createElement('span');
         productPrice.appendChild(price);
         price.textContent = storedProduct.productPrice + "€"
 
@@ -54,7 +64,7 @@ if(storedProducts == null || storedProducts.length === 0){
     // Récupération de l'article associé au bouton de suppression
     let deleteButton = document.getElementsByClassName('delete-button');
     for (let i = 0 ; i < deleteButton.length; i++) {
-        deleteButton[i].addEventListener('click' , function (event) { 
+        deleteButton[i].addEventListener('click' , function (event) {
             event.preventDefault();
             let id = this.closest('.product-price').id;
 
@@ -65,8 +75,8 @@ if(storedProducts == null || storedProducts.length === 0){
             localStorage.setItem('newArticle', JSON.stringify(storedProducts));
             JSON.parse(localStorage.getItem('newArticle'));
 
-            alert('Cetarticle a bien été supprimé !');
-            window.location.href = "panier.html";   
+            alert('Cet article a bien été supprimé !');
+            window.location.href = "panier.html";
         }); 
     };
 
@@ -81,10 +91,19 @@ if(storedProducts == null || storedProducts.length === 0){
     const totalPrice = calculPrice.reduce(reducer, 0);
     console.log(totalPrice);
 
+    const totalPriceDiv = document.createElement('div');
+    productStoredDiv.appendChild(totalPriceDiv);
+    totalPriceDiv.className = 'total-price-div';
+
     const total = document.createElement('p');
-    productStoredDiv.appendChild(total);
+    totalPriceDiv.appendChild(total);
     total.className = 'total';
-    total.textContent = "Montant du panier = " + totalPrice + "€";
+    total.textContent = "Total à régler : ";
+
+    const priceValue = document.createElement('span');
+    totalPriceDiv.appendChild(priceValue);
+    priceValue.className = 'price-value';
+    priceValue.textContent = totalPrice + "€";
 
     //création d'un bouton pour vider le panier
     const clearCart = document.createElement('button');
@@ -111,12 +130,12 @@ if(storedProducts == null || storedProducts.length === 0){
 
     //Formulaire de commande
     const form = document.createElement('form');
-    form.className = 'order-form';
     productStoredDiv.appendChild(form);
+    form.className = 'order-form';
 
-    const productH3 = document.createElement('h3');
-    form.appendChild(productH3);
-    productH3.textContent = "Veuillez remplir ce formulaire pour passer commande : ";
+    const productH2 = document.createElement('h2');
+    form.appendChild(productH2);
+    productH2.textContent = "Veuillez remplir ce formulaire pour passer commande : ";
 
     // Fonctions de validité prénom, nom, ville
     function isValid(value) {
@@ -147,14 +166,14 @@ if(storedProducts == null || storedProducts.length === 0){
     firstNameDiv.appendChild(firstName);
     firstName.setAttribute('type', 'text');
     firstName.setAttribute('class', 'name');
-    firstName.name = "Prénom"
+    firstName.name = "Prénom";
     firstName.required = true;
 
     // Vérification de la validité du prénom
     firstName.addEventListener("change", function (event) {
         if (isValid(firstName.value)) {
         } else {
-            alert( "Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
+            alert( "Veuillez saisir un prénom valide ; Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
             event.preventDefault()
         }
     });
@@ -180,7 +199,7 @@ if(storedProducts == null || storedProducts.length === 0){
     lastName.addEventListener("change", function (event) {
         if (isValid(lastName.value)) {
         } else {
-            alert("Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
+            alert("Veuillez saisir un nom valide ; Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
             event.preventDefault()
         }
     });
@@ -207,7 +226,7 @@ if(storedProducts == null || storedProducts.length === 0){
         if (validAddress(address.value)){
         } else {
             event.preventDefault()
-            alert("Les symbole (-*,#~&) ne sont pas autorisés.");
+            alert("Veuillez saisir une adresse postale valide ;Les symbole (-*,#~&) ne sont pas autorisés.");
         }
     });
 
@@ -232,7 +251,7 @@ if(storedProducts == null || storedProducts.length === 0){
     city.addEventListener("change", function (event) {
         if (isValid(city.value)) {
         } else {
-            alert("Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
+            alert("Veuillez saisir un nom de ville valide ; Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
             event.preventDefault()
         }
     });
@@ -240,7 +259,7 @@ if(storedProducts == null || storedProducts.length === 0){
     // ajout formulaire "mail"
     const mailDiv = document.createElement('div');
     form.appendChild(mailDiv);
-    mailDiv.className = 'div_name';
+    mailDiv.className = 'name-div';
 
     const labelMail = document.createElement('label');
     mailDiv.appendChild(labelMail);

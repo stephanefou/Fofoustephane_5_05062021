@@ -135,7 +135,11 @@ if(storedProducts == null || storedProducts.length === 0){
 
     const productH2 = document.createElement('h2');
     form.appendChild(productH2);
-    productH2.textContent = "Veuillez remplir ce formulaire pour passer commande : ";
+    productH2.innerHTML = "Finalisez votre commande !<br>";
+    
+    const productH2Sub = document.createElement('span');
+    productH2.appendChild(productH2Sub);
+    productH2Sub.textContent = '(Remplissez les champs ci-dessous)';
 
     // Fonctions de validité prénom, nom, ville
     function isValid(value) {
@@ -155,7 +159,7 @@ if(storedProducts == null || storedProducts.length === 0){
     // Formulaire "prénom"
     const firstNameDiv = document.createElement('div');
     form.appendChild(firstNameDiv);
-    firstNameDiv.className = 'name-div';
+    firstNameDiv.className = 'first-name field';
 
     const labelFirstName = document.createElement('label');
     firstNameDiv.appendChild(labelFirstName);
@@ -165,7 +169,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const firstName = document.createElement('input');
     firstNameDiv.appendChild(firstName);
     firstName.setAttribute('type', 'text');
-    firstName.setAttribute('class', 'name');
+    firstName.setAttribute('class', 'input');
     firstName.name = "Prénom";
     firstName.required = true;
 
@@ -173,7 +177,7 @@ if(storedProducts == null || storedProducts.length === 0){
     firstName.addEventListener("change", function (event) {
         if (isValid(firstName.value)) {
         } else {
-            alert( "Veuillez saisir un prénom valide ; Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
+            alert( "Veuillez saisir un prénom valide ; Les chiffres et les symboles (-*,#~&) ne sont pas autorisés.")
             event.preventDefault()
         }
     });
@@ -181,7 +185,7 @@ if(storedProducts == null || storedProducts.length === 0){
     // Formulaire "nom"
     const lastNameDiv = document.createElement('div');
     form.appendChild(lastNameDiv);
-    lastNameDiv.className = 'name-div';
+    lastNameDiv.className = 'last-name field';
 
     const labelLastName = document.createElement('label');
     lastNameDiv.appendChild(labelLastName);
@@ -191,7 +195,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const lastName = document.createElement('input');
     lastNameDiv.appendChild(lastName);
     lastName.setAttribute('type', 'text');
-    lastName.setAttribute('class', 'name');
+    lastName.setAttribute('class', 'input');
     lastName.name = "Nom"
     lastName.required = true;
 
@@ -199,7 +203,7 @@ if(storedProducts == null || storedProducts.length === 0){
     lastName.addEventListener("change", function (event) {
         if (isValid(lastName.value)) {
         } else {
-            alert("Veuillez saisir un nom valide ; Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
+            alert("Veuillez saisir un nom valide ; Les chiffres et les symboles (-*,#~&) ne sont pas autorisés.")
             event.preventDefault()
         }
     });
@@ -207,7 +211,7 @@ if(storedProducts == null || storedProducts.length === 0){
     // ajout formulaire "adresse"
     const addressDiv = document.createElement('div');
     form.appendChild(addressDiv);
-    addressDiv.className = 'name-div';
+    addressDiv.className = 'adress field';
 
     const labelAdress = document.createElement('label');
     addressDiv.appendChild(labelAdress);
@@ -217,7 +221,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const address = document.createElement('textarea');
     addressDiv.appendChild(address);
     address.setAttribute('type', 'text');
-    address.setAttribute('class', 'name');
+    address.setAttribute('class', 'input');
     address.name = "Adresse"
     address.required = true;
 
@@ -226,14 +230,14 @@ if(storedProducts == null || storedProducts.length === 0){
         if (validAddress(address.value)){
         } else {
             event.preventDefault()
-            alert("Veuillez saisir une adresse postale valide ;Les symbole (-*,#~&) ne sont pas autorisés.");
+            alert("Veuillez saisir une adresse postale valide ;Les symboles (-*,#~&) ne sont pas autorisés.");
         }
     });
 
     // ajout formulaire "ville"
     const cityDiv = document.createElement('div');
     form.appendChild(cityDiv);
-    cityDiv.className = 'name-div';
+    cityDiv.className = 'city field';
 
     const labelCity = document.createElement('label');
     cityDiv.appendChild(labelCity);
@@ -243,7 +247,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const city = document.createElement('input');
     cityDiv.appendChild(city);
     city.setAttribute('type', 'text');
-    city.setAttribute('class', 'name');
+    city.setAttribute('class', 'input');
     city.name = "Ville"
     city.required = true;
 
@@ -251,7 +255,7 @@ if(storedProducts == null || storedProducts.length === 0){
     city.addEventListener("change", function (event) {
         if (isValid(city.value)) {
         } else {
-            alert("Veuillez saisir un nom de ville valide ; Les chiffres et les symbole (-*,#~&) ne sont pas autorisés.")
+            alert("Veuillez saisir un nom de ville valide ; Les chiffres et les symboles (-*,#~&) ne sont pas autorisés.")
             event.preventDefault()
         }
     });
@@ -259,7 +263,7 @@ if(storedProducts == null || storedProducts.length === 0){
     // ajout formulaire "mail"
     const mailDiv = document.createElement('div');
     form.appendChild(mailDiv);
-    mailDiv.className = 'name-div';
+    mailDiv.className = 'mail field';
 
     const labelMail = document.createElement('label');
     mailDiv.appendChild(labelMail);
@@ -269,7 +273,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const mail = document.createElement('input');
     mailDiv.appendChild(mail);
     mail.setAttribute('type', 'email');
-    mail.setAttribute('class', 'name');
+    mail.setAttribute('class', 'input');
     mail.name = "Adresse mail"
     mail.required = true;
 
@@ -285,7 +289,7 @@ if(storedProducts == null || storedProducts.length === 0){
     // Bouton de validation de la commande
     const submitDiv = document.createElement('div');
     form.appendChild(submitDiv);
-    submitDiv.className = 'name-div';
+    submitDiv.className = 'submit-order';
 
     let submit = document.createElement('button');
     submitDiv.appendChild(submit);
@@ -294,7 +298,7 @@ if(storedProducts == null || storedProducts.length === 0){
     submit.id = 'valid';
     submit.textContent = "Valider votre commande";
 
-    // Bouton de validation de la commande
+    // Bouton de retour sur la page principale
     const home = document.createElement('div');
     cartMain.appendChild(home);
     home.className = 'home';

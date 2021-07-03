@@ -33,6 +33,11 @@ header .panier {
   transform: scale(0.9);
   transition: transform 300ms ease-in-out;
 }
+
+.fa-shopping-basket {
+  font-size: 1.3em;
+}
+
 header .panier:hover {
   opacity: 1;
   transform: scale(1);
@@ -297,12 +302,13 @@ article img {
   transition: background-color 25ms ease-in-out;
 }
 
-.product-info #submit:active {
-  background-color: #38332E;
-}
-
 .product-info #submit:hover {
   color: #38332E;
+}
+
+.product-info #submit:active {
+  background-color: #ADADAD;
+  color: #fff;
 }
 
 .product-info #submit:hover+.fa-plus-circle {
@@ -515,6 +521,14 @@ article img {
 .order-form #valid:hover {
   background-color: #085a5a;
   color: #ADADAD;
+}
+
+#confirmation-main {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 5px;
 }
 
 @media (max-width: 760px)  {

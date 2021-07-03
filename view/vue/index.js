@@ -22,8 +22,12 @@ class Product {
 fetch("http://localhost:3000/api/teddies/")
     .then( data => data.json())
     .then( jsonListProduct => {
+        console.log(jsonListProduct)
+
         for(let jsonProduct of jsonListProduct){
             let product = new Product(jsonProduct);
+            console.log(product)
+            
             document.getElementById("teddies").innerHTML += `<article>
                                                                 <a href="../../view/produit/produit.html?id=${product._id}" title="'Ours en peluche ${product.name}'">
                                                                     <div class="div-img">

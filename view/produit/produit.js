@@ -52,7 +52,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
         const productPrice = document.createElement('p');
         productDivInfo.appendChild(productPrice);
         productPrice.className = 'product-price';
-        productPrice.textContent = product.price / 100 + '€';
+        productPrice.textContent = product.price / 100 + ',00' + '€';
 
         // Choix de la couleur
         const form = document.createElement('form');
@@ -80,6 +80,46 @@ fetch("http://localhost:3000/api/teddies/" + id)
             colorSelectOption.textContent = colors[i];
             colorSelectOption.setAttribute("value", colors[i]);
         }
+
+        /*const numberOfProductMinus = document.createElement('button');
+        form.appendChild(numberOfProductMinus);
+        numberOfProductMinus.type = 'button';
+        numberOfProductMinus.className = 'buttonMinus';
+        
+        const numberOfProductMinusIcon = document.createElement('i');
+        numberOfProductMinus.appendChild(numberOfProductMinusIcon);
+        numberOfProductMinusIcon.className = 'fas fa-minus';
+
+        let productQuantityInput = document.createElement('input');
+        form.appendChild(productQuantityInput);
+        productQuantityInput.className = 'quantityValue';
+        productQuantityInput.setAttribute('type', "text");
+        productQuantityInput.value = 0;
+
+        const numberOfProductPlus = document.createElement('button');
+        form.appendChild(numberOfProductPlus);
+        numberOfProductPlus.type = 'button';
+        numberOfProductPlus.className = 'buttonPlus';
+
+        const numberOfProductPlusIcon = document.createElement('i');
+        numberOfProductPlus.appendChild(numberOfProductPlusIcon);
+        numberOfProductPlusIcon.className = 'fas fa-plus';
+
+        document.getElementsByClassName("buttonMinus")
+            .addEventListener("click", function() {
+                document.getElementsByClassName("quantityValue")
+                    .value = (++productQuantityInput.value) + '';
+        });*/
+
+        /*var u = 0;
+
+        function buttonPlus() {
+            u++;
+        }
+
+        function buttonMinus() {
+            u--;
+        }*/
 
         // création bouton panier
         let addProduct = document.createElement('button');

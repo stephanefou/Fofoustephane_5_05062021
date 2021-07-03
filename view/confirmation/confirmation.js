@@ -1,49 +1,66 @@
-//EXPLIQUER
-class Product {
-    constructor(jsonProduct){
-        jsonProduct && Object.assign(this, jsonProduct);
-    }
-}
-
-//envoie une requête au serveur
-//dans une fonction fléchée la partie gauche est une variable quon crée, ici data est la variable dans laquelle va être inséré le résultat du fetch 
-//On a récupéré nos articles et voulons les afficher:
-//On crée une boucle "for of" qui va parcourir le tableau jsonListproduct et pour chaque élément de ce tableau créera une variable jsonProduct qu'on pourra manipuler.
-//Pour chaque produit, on crée un nouvel objet produit avec le json en paramètre
-//"+=" permet de concaténer (ajoute la valeur qui est à droite à la valeur déjà existante, celle de gauche) a(nouvelle valeur)=a+b , a+=b
-fetch("http://localhost:3000/api/teddies/")
-    .then( data => data.json())
-    .then( jsonListProduct => {
-        for(let jsonProduct of jsonListProduct){
-            let product = new Product(jsonProduct);
-            document.getElementById("teddies").innerHTML += `<article>
-                                                                <a href="produit.html" title="'Ours en peluche ${product.name}'">
-                                                                    <div class="div-img">
-                                                                        <img class="article-card__photo" src="${product.imageUrl}" alt="Ours en peluche brun fait main">
-                                                                    </div>
-                                                                    <div class="article-card__title">
-                                                                        <h3>Ours en peluche ${product.name}</h3>
-                                                                        <div>
-                                                                            <p><i class="fas fa-check"></i>EN STOCK</p>
-                                                                            <span class="article-card__price">${product.price/100} €</span>
-                                                                        </div>
-                                                                    </div>
-                                                                </a>
-                                                            </article>`;
-        }
-    });
-    
-
-/*class ProductManager {
-    constructor(listProduct){
-        this.listProduct = listProduct;
-    }
-}*/
+// récupération de l'id de la commande
+let orderId = localStorage.getItem('responseOrder');
+console.log(orderId);
 
 
+// récupération du prix total de la commande
+let totalPrice = localStorage.getItem('totalPrice');
+console.log(totalPrice);
 
+//création page de confirmation et remerciement
+const confirmationMain = document.getElementById('confirmation-main');
+const confirmOrderDiv = document.createElement('div');
+confirmationMain.appendChild(confirmOrderDiv);
+confirmOrderDiv.className = 'confirmation-order';
 
+const confirmationH2 = document.createElement('h2');
+confirmOrderDiv.appendChild(confirmationH2);
+confirmationH2.textContent = "Oribears vous remercie de votre commande !";
 
+const confirmationText = document.createElement('p');
+confirmOrderDiv.appendChild(confirmationText);
+confirmationText.textContent = "Votre commande a bien été enregistrée.";
 
+const confirmationText2 = document.createElement('p');
+confirmOrderDiv.appendChild(confirmationText2);
+confirmationText2.innerHTML = "Vos oursons sont en préparation et serons bientôt en route vers l'adresse de livraison.<br />Veuillez trouver ci-dessous le récapitulatif de votre commande."
 
+const confirmationText3 = document.createElement('p');
+confirmOrderDiv.appendChild(confirmationText3);
+confirmationText3.textContent = "A très vite chez Oribears !"
 
+// récapitulatif de la commande
+const orderResumeDiv = document.createElement('div');
+confirmOrderDiv.appendChild(orderResumeDiv);
+orderResumeDiv.className = 'order-resume';
+
+const confirmationH2Bis = document.createElement('H2');
+orderResumeDiv.appendChild(confirmationH2Bis);
+confirmationH2Bis.textContent = "Récapitulatif de votre commande : ";
+
+const orderIdResume = document.createElement('p');
+orderResumeDiv.appendChild(orderIdResume);
+orderIdResume.textContent = "Numéro de commande : " + orderId;
+orderIdResume.className = "order-id-resume";
+
+const totalPriceResume = document.createElement('p');
+orderResumeDiv.appendChild(totalPriceResume);
+totalPriceResume.textContent = "Montant de votre commande : " + totalPrice + " €";
+totalPriceResume.className = "total-price-resume";
+
+// Bouton de retour sur la page principale
+const home = document.createElement('div');
+confirmationMain.appendChild(home);
+home.className = 'home';
+
+const homeButton = document.createElement('button');
+home.appendChild(homeButton);
+
+const homeLink = document.createElement('a');
+homeButton.appendChild(homeLink);
+homeLink.href = '../vue/index.html';
+homeLink.title = '< Retourner à la liste des produits';
+homeLink.textContent = "< Continuer mes achats";
+
+// Efface localStorage
+localStorage.clear();

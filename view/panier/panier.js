@@ -18,6 +18,8 @@ if(storedProducts == null || storedProducts.length === 0){
     productStoredDiv.appendChild(emptyCart);
     emptyCart.className = "empty-cart";
     emptyCart.textContent = "Votre panier est vide..."
+
+    cartH2.style.display = "none"; /*le titre n'apparaît pas dans le cas d'un panier vide*/
 } else {
     // si des éléments sont présents dans le panier : récupération des éléments du panier
     let i = 0;
@@ -334,17 +336,17 @@ if(storedProducts == null || storedProducts.length === 0){
 
             // création d'un tableau products (id des oursons du panier)
             /*-------------------------------*/
-            let productsArray = [];
+            let products = [];
             for (storedProduct of storedProducts) {
                 let productsId = storedProduct.productId;
-                productsArray.push((productsId));
-            }
-            console.log(products);
+                products.push((productsId));
+            };
+            /*console.log(products);*//*n'existe que dans la boucle?*/
 /*---------------------------------------------*/
             // Objet regroupant contact et produits
             let send = {
                 contact,
-                productsArray,
+                products,
             }
             console.log(send);
 
@@ -362,7 +364,7 @@ if(storedProducts == null || storedProducts.length === 0){
                         let data = await response.json();
                         console.log(data.orderId);
                         localStorage.setItem("responseOrder", data.orderId);
-                        window.location = "confirmation.html";
+                        window.location = "../confirmation/confirmation.html";
                         localStorage.removeItem("newArticle");
 
                     } else {

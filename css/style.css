@@ -34,8 +34,22 @@ header .panier {
   transition: transform 300ms ease-in-out;
 }
 
-.fa-shopping-basket {
-  font-size: 1.3em;
+header #quantity-in-the-basket {
+  font-family: "Poppins", sans-serif;
+  font-size: 0.8em;
+  font-weight: 600;
+  color:#fff;
+  padding: 1px 6px;
+  border: 0;
+  border-radius: 15px;
+  background-color: red;
+  position: relative;
+  left: 42px;
+  bottom: 8px;
+}
+
+header .fa-shopping-basket {
+  font-size: 1.4em;
 }
 
 header .panier:hover {
@@ -529,6 +543,14 @@ article img {
   flex-direction: column;
   text-align: center;
   padding: 5px;
+}
+
+#confirmation-main p {
+  font-family: "Poppins", sans-serif;
+}
+
+#confirmation-main .total-price-resume {
+  margin-bottom: 50px;
 }
 
 @media (max-width: 760px)  {

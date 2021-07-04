@@ -1,6 +1,6 @@
 //Récupération de l'id
-const url_string = window.location.href;
-const url = new URL(url_string);
+const urlString = window.location.href;
+const url = new URL(urlString);
 const id = url.searchParams.get("id");
 
 console.log(id);
@@ -16,15 +16,15 @@ fetch("http://localhost:3000/api/teddies/" + id)
     .then(product => {
         console.log(product)
 
-        // création div produit
+        // Création des éléments html de la page produit
         const productMain = document.getElementById('produit');
 
-        // création div de l'ourson
+        // Création de la div du produit
         const productDivImg = document.createElement('div');
         productMain.appendChild(productDivImg);
         productDivImg.className = 'div-img-product';
 
-        //ajout image à la div ourson
+        //Ajout de l'image à la div du produit
         const productImg = document.createElement('img');
         productDivImg.appendChild(productImg);
         productImg.className = 'product-photo';
@@ -32,17 +32,17 @@ fetch("http://localhost:3000/api/teddies/" + id)
         productImg.setAttribute('alt', 'Ours en peluche ' + product.name);
         productImg.setAttribute('title', 'Ours en peluche ' + product.name);
 
-        //création div de présentation
+        //Création de la div d'information du produit
         const productDivInfo = document.createElement('div');
         productMain.appendChild(productDivInfo);
         productDivInfo.className = 'product-info';
 
-        // ajout nom teddy en titre H2
+        // Ajout du nom du produit en titre H2
         const productH2 = document.createElement('h2');
         productDivInfo.appendChild(productH2);
         productH2.textContent = 'Ours en peluche ' + product.name;
 
-        // Description
+        // Description du produit
         const productDescription = document.createElement('p');
         productDivInfo.appendChild(productDescription);
         productDescription.className = 'description';
@@ -81,7 +81,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
             colorSelectOption.setAttribute("value", colors[i]);
         }
 
-        /*const numberOfProductMinus = document.createElement('button');
+        const numberOfProductMinus = document.createElement('button');
         form.appendChild(numberOfProductMinus);
         numberOfProductMinus.type = 'button';
         numberOfProductMinus.className = 'buttonMinus';
@@ -94,7 +94,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
         form.appendChild(productQuantityInput);
         productQuantityInput.className = 'quantityValue';
         productQuantityInput.setAttribute('type', "text");
-        productQuantityInput.value = 0;
+        productQuantityInput.value = 1;
 
         const numberOfProductPlus = document.createElement('button');
         form.appendChild(numberOfProductPlus);
@@ -105,23 +105,25 @@ fetch("http://localhost:3000/api/teddies/" + id)
         numberOfProductPlus.appendChild(numberOfProductPlusIcon);
         numberOfProductPlusIcon.className = 'fas fa-plus';
 
-        document.getElementsByClassName("buttonMinus")
-            .addEventListener("click", function() {
-                document.getElementsByClassName("quantityValue")
-                    .value = (++productQuantityInput.value) + '';
-        });*/
-
-        /*var u = 0;
-
-        function buttonPlus() {
-            u++;
-        }
-
-        function buttonMinus() {
+        let u = 1;
+ 
+        numberOfProductMinus.addEventListener("click", function(a) {
             u--;
-        }*/
+            /*document.getElementsByClassName("quantityValue").value = u; ne marche pas???*/
+            productQuantityInput.value = u;
+            productPrice.textContent = (product.price * productQuantityInput.value)/ 100 + ',00' + '€';
+        });
 
-        // création bouton panier
+        numberOfProductPlus.addEventListener("click", function(b) {
+            u++;
+            /*document.getElementsByClassName("quantityValue").value = u; ne marche pas???*/
+            productQuantityInput.value = u;
+            productPrice.textContent = (product.price * productQuantityInput.value)/ 100 + ',00' + '€';
+        });
+
+        console.log(productQuantityInput)
+
+        // Création du bouton panier
         let addProduct = document.createElement('button');
         form.appendChild(addProduct);
         addProduct.type = 'submit';
@@ -133,18 +135,29 @@ fetch("http://localhost:3000/api/teddies/" + id)
         form.appendChild(addProductIcon);
         addProductIcon.className = 'fas fa-plus-circle';
 
-        // récupérations données et envoie au panier
+        let v = 0;
+        let articleInTheBasket = 0
+
+        const quantityInTheBasket = function () {
+            v++; /*la dernière valeur de v est retenu après incrémentation dans la fonction*/
+            articleInTheBasket = v;
+            document.getElementById('quantity-in-the-basket').innerHTML =+ articleInTheBasket;
+        }
+
+        // Récupérations des données et envoie au panier
         addProduct.addEventListener("click", function (event) {
             event.preventDefault();
 
-        // stockage des données du/des teddy souhaité dans localStorage
+            quantityInTheBasket ();
+
+        // Stockage des données du produit dans localStorage
             let selectedProducts = {
                 productName: product.name,
                 productId: product._id,
                 productColor: colorSelect.value,
                 productImg: product.imageUrl,
-                quantity: 1,
-                productPrice: product.price / 100,
+                quantity: productQuantityInput.value, /*--------------------------------- */
+                productPrice: productQuantityInput.value * product.price / 100,
             };
             console.log(selectedProducts);
 
@@ -155,7 +168,8 @@ fetch("http://localhost:3000/api/teddies/" + id)
                 storedProducts.push(selectedProducts);
                 localStorage.setItem('newArticle', JSON.stringify(storedProducts));
                 console.log(storedProducts);
-                if (window.confirm(product.name + " " + productColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
+                /*productName ne marche pas ci-dessous... */
+                if (window.confirm(selectedProducts.quantity + "x " + product.name + " " + productColor + ' a bien été ajouté. Souhaitez vous consulter votre panier ?')) { 
                     window.location.href = "../panier/panier.html";
                 } else {
                     window.location.href = "../vue/index.html";

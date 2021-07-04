@@ -1,13 +1,13 @@
-// récupération de l'id de la commande
+// Récupération de l'id de la commande
 let orderId = localStorage.getItem('responseOrder');
 console.log(orderId);
 
 
-// récupération du prix total de la commande
+// Récupération du prix total de la commande
 let totalPrice = localStorage.getItem('totalPrice');
 console.log(totalPrice);
 
-//création page de confirmation et remerciement
+//création des éléments html de la page confirmation
 const confirmationMain = document.getElementById('confirmation-main');
 const confirmOrderDiv = document.createElement('div');
 confirmationMain.appendChild(confirmOrderDiv);
@@ -29,7 +29,7 @@ const confirmationText3 = document.createElement('p');
 confirmOrderDiv.appendChild(confirmationText3);
 confirmationText3.textContent = "A très vite chez Oribears !"
 
-// récapitulatif de la commande
+// Récapitulatif de la commande
 const orderResumeDiv = document.createElement('div');
 confirmOrderDiv.appendChild(orderResumeDiv);
 orderResumeDiv.className = 'order-resume';
@@ -48,7 +48,7 @@ orderResumeDiv.appendChild(totalPriceResume);
 totalPriceResume.textContent = "Montant de votre commande : " + totalPrice + " €";
 totalPriceResume.className = "total-price-resume";
 
-// Bouton de retour sur la page principale
+// Bouton de retour à la page principale
 const home = document.createElement('div');
 confirmationMain.appendChild(home);
 home.className = 'home';
@@ -62,5 +62,5 @@ homeLink.href = '../vue/index.html';
 homeLink.title = '< Retourner à la liste des produits';
 homeLink.textContent = "< Continuer mes achats";
 
-// Efface localStorage
+// Nettoyage du localStorage
 localStorage.clear();

@@ -1,8 +1,8 @@
-//récupération données localStorage
+//récupération des données du localStorage
 let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
 console.log(storedProducts);
 
-// création de la page du récapitulatif panier
+// création d'éléments html de la page panier
 const cartMain = document.getElementById('main-cart');
 const productStoredDiv = document.createElement('div');
 cartMain.appendChild(productStoredDiv);
@@ -20,6 +20,10 @@ if(storedProducts == null || storedProducts.length === 0){
     emptyCart.textContent = "Votre panier est vide..."
 
     cartH2.style.display = "none"; /*le titre n'apparaît pas dans le cas d'un panier vide*/
+    const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
+    quantityInTheBasket.style.display = "none";
+
+
 } else {
     // si des éléments sont présents dans le panier : récupération des éléments du panier
     let i = 0;

@@ -1,3 +1,16 @@
+//récupération des données du localStorage
+let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
+console.log(storedProducts);
+
+/*let quantityInTheBasket =+ storedProducts.*/
+if (storedProducts == null || storedProducts.length === 0) {
+    const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
+    quantityInTheBasket.style.display = "none";
+
+} else {
+        document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
+}
+
 const getProductList =  async function() {
     //récupération des données de l'API 
     try {

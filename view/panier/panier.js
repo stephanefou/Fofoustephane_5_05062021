@@ -2,6 +2,13 @@
 let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
 console.log(storedProducts);
 
+if (storedProducts == null || storedProducts.length === 0) {
+    document.getElementById('quantity-in-the-basket').innerHTML = '0';
+
+} else {
+        document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
+}
+
 // création d'éléments html de la page panier
 const cartMain = document.getElementById('main-cart');
 const productStoredDiv = document.createElement('div');

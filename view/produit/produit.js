@@ -1,3 +1,16 @@
+//récupération des données du localStorage
+let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
+console.log(storedProducts);
+
+/*let quantityInTheBasket =+ storedProducts.*/
+if (storedProducts == null || storedProducts.length === 0) {
+    const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
+    quantityInTheBasket.style.display = "none";
+
+} else {
+        document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
+}
+
 //Récupération de l'id
 const urlString = window.location.href;
 const url = new URL(urlString);
@@ -135,22 +148,26 @@ fetch("http://localhost:3000/api/teddies/" + id)
         form.appendChild(addProductIcon);
         addProductIcon.className = 'fas fa-plus-circle';
 
-        let v = 0;
-        let articleInTheBasket = 0
+        /*let v = 1;
+        let articleInTheBasket = JSON.parse(localStorage.getItem('articleInTheBasket'));
 
         const quantityInTheBasket = function () {
-            v++; /*la dernière valeur de v est retenu après incrémentation dans la fonction*/
-            articleInTheBasket = v;
+            v++; /*la dernière valeur de v est retenu après incrémentation dans la fonction*//*
+            articleInTheBasket =+ v;
             document.getElementById('quantity-in-the-basket').innerHTML =+ articleInTheBasket;
-        }
+
+            localStorage.setItem(articleInTheBasket, v);
+            localStorage.setItem('newArticlesss', JSON.stringify(articleInTheBasket));
+        }*/
 
         // Récupérations des données et envoie au panier
         addProduct.addEventListener("click", function (event) {
             event.preventDefault();
 
-            quantityInTheBasket ();
+           /*// Stockage du nombre de produit dans localStorage
+            quantityInTheBasket ();*/
 
-        // Stockage des données du produit dans localStorage
+            // Stockage des données du produit dans localStorage
             let selectedProducts = {
                 productName: product.name,
                 productId: product._id,
@@ -174,6 +191,8 @@ fetch("http://localhost:3000/api/teddies/" + id)
                 } else {
                     window.location.href = "../vue/index.html";
                 }
+            document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
+                
         });
     });
 

@@ -30,3 +30,8 @@
     position: sticky;
     bottom: 0;
 }
+
+@mixin input {
+    height: 40px;
+    outline: none;
+}

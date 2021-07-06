@@ -70,13 +70,18 @@ fetch("http://localhost:3000/api/teddies/" + id)
         // Choix de la couleur
         const form = document.createElement('form');
         productDivInfo.appendChild(form);
+
+        const customizationDiv = document.createElement('div');
+        form.appendChild(customizationDiv);
+        customizationDiv.className = 'customization-div';
+
         const colorChoiceDiv = document.createElement('div');
-        form.appendChild(colorChoiceDiv);
+        customizationDiv.appendChild(colorChoiceDiv);
         colorChoiceDiv.className = 'color-choice';
 
         const label = document.createElement('label');
         colorChoiceDiv.appendChild(label);
-        label.textContent = "Choisir une couleur :";
+        label.textContent = "Couleur :";
         label.setAttribute('for', "selection");     /* for de #selection, attribut non affiché! */
 
         const colorSelect = document.createElement('select');
@@ -94,25 +99,29 @@ fetch("http://localhost:3000/api/teddies/" + id)
             colorSelectOption.setAttribute("value", colors[i]);
         }
 
+        const numberChoiceDiv = document.createElement('div');
+        customizationDiv.appendChild(numberChoiceDiv);
+        numberChoiceDiv.className = 'number-choice';
+
         const numberOfProductMinus = document.createElement('button');
-        form.appendChild(numberOfProductMinus);
+        numberChoiceDiv.appendChild(numberOfProductMinus);
         numberOfProductMinus.type = 'button';
-        numberOfProductMinus.className = 'buttonMinus';
+        numberOfProductMinus.className = 'button-minus';
         
         const numberOfProductMinusIcon = document.createElement('i');
         numberOfProductMinus.appendChild(numberOfProductMinusIcon);
         numberOfProductMinusIcon.className = 'fas fa-minus';
 
         let productQuantityInput = document.createElement('input');
-        form.appendChild(productQuantityInput);
-        productQuantityInput.className = 'quantityValue';
-        productQuantityInput.setAttribute('type', "text");
+        numberChoiceDiv.appendChild(productQuantityInput);
+        productQuantityInput.className = 'quantity-value';
+        productQuantityInput.setAttribute('type', "number");
         productQuantityInput.value = 1;
 
         const numberOfProductPlus = document.createElement('button');
-        form.appendChild(numberOfProductPlus);
+        numberChoiceDiv.appendChild(numberOfProductPlus);
         numberOfProductPlus.type = 'button';
-        numberOfProductPlus.className = 'buttonPlus';
+        numberOfProductPlus.className = 'button-plus';
 
         const numberOfProductPlusIcon = document.createElement('i');
         numberOfProductPlus.appendChild(numberOfProductPlusIcon);
@@ -123,6 +132,10 @@ fetch("http://localhost:3000/api/teddies/" + id)
         numberOfProductMinus.addEventListener("click", function(a) {
             u--;
             /*document.getElementsByClassName("quantityValue").value = u; ne marche pas???*/
+            //prevent variable to be negative
+            if (u < 1) {
+                u = 1;
+            }
             productQuantityInput.value = u;
             productPrice.textContent = (product.price * productQuantityInput.value)/ 100 + ',00' + '€';
         });
@@ -134,19 +147,32 @@ fetch("http://localhost:3000/api/teddies/" + id)
             productPrice.textContent = (product.price * productQuantityInput.value)/ 100 + ',00' + '€';
         });
 
+        productQuantityInput.addEventListener("input", function(c) {
+            /*document.getElementsByClassName("quantityValue").value = u; ne marche pas???*/
+            output.innerHTML = event.target.value;
+            out
+            productPrice.textContent = (product.price * u)/ 100 + ',00' + '€';
+        });
+
         console.log(productQuantityInput)
 
         // Création du bouton panier
+        const submitDiv = document.createElement('div');
+        form.appendChild(submitDiv);
+        submitDiv.className = 'submit-div';
+
+        const addProductIcon = document.createElement('i');
+        submitDiv.appendChild(addProductIcon);
+        addProductIcon.className = 'fas fa-cart-plus';
+
         let addProduct = document.createElement('button');
-        form.appendChild(addProduct);
+        submitDiv.appendChild(addProduct);
         addProduct.type = 'submit';
         addProduct.name = 'addToCart';
         addProduct.id = 'submit';
         addProduct.textContent = "AJOUTER AU PANIER";
 
-        const addProductIcon = document.createElement('i');
-        form.appendChild(addProductIcon);
-        addProductIcon.className = 'fas fa-plus-circle';
+        
 
         /*let v = 1;
         let articleInTheBasket = JSON.parse(localStorage.getItem('articleInTheBasket'));
@@ -178,6 +204,7 @@ fetch("http://localhost:3000/api/teddies/" + id)
             };
             console.log(selectedProducts);
 
+            
             let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
             const productColor = colorSelect.value;
             if(storedProducts == null)

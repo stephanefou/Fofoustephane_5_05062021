@@ -30,6 +30,19 @@ if(storedProducts == null || storedProducts.length === 0){
     const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
     quantityInTheBasket.style.display = "none";
 
+    // Bouton de retour sur la page principale
+    const home = document.createElement('div');
+    cartMain.appendChild(home);
+    home.className = 'home';
+
+    const homeButton = document.createElement('button');
+    home.appendChild(homeButton);
+
+    const homeLink = document.createElement('a');
+    homeButton.appendChild(homeLink);
+    homeLink.href = '../vue/index.html';
+    homeLink.title = '< Retourner à la liste des produits';
+    homeLink.textContent = "< Continuer mes achats";
 
 } else {
     // si des éléments sont présents dans le panier : récupération des éléments du panier
@@ -103,9 +116,13 @@ if(storedProducts == null || storedProducts.length === 0){
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     const totalPrice = calculPrice.reduce(reducer, 0);
     console.log(totalPrice);
+    
+    const priceAndClear = document.createElement('div');
+    productStoredDiv.appendChild(priceAndClear);
+    priceAndClear.className = 'price-clear';
 
     const totalPriceDiv = document.createElement('div');
-    productStoredDiv.appendChild(totalPriceDiv);
+    priceAndClear.appendChild(totalPriceDiv);
     totalPriceDiv.className = 'total-price-div';
 
     const total = document.createElement('p');
@@ -113,22 +130,26 @@ if(storedProducts == null || storedProducts.length === 0){
     total.className = 'total';
     total.textContent = "Total à régler : ";
 
+    const totalPriceDivBis = document.createElement('div');
+    priceAndClear.appendChild(totalPriceDivBis);
+    totalPriceDivBis.className = 'total-price-div-bis';
+
     const priceValue = document.createElement('span');
-    totalPriceDiv.appendChild(priceValue);
+    totalPriceDivBis.appendChild(priceValue);
     priceValue.className = 'price-value';
     priceValue.textContent = totalPrice + "€";
 
     //création d'un bouton pour vider le panier
     const clearCart = document.createElement('button');
-    productStoredDiv.appendChild(clearCart);
+    totalPriceDivBis.appendChild(clearCart);
     clearCart.className = 'clear-cart';
 
     const clearCartLink = document.createElement('a');
     clearCart.appendChild(clearCartLink);
     clearCartLink.href = "panier.html";
     clearCartLink.id = "clear-cart-link"
-    clearCartLink.title = 'Vider le panier';
-    clearCartLink.textContent = "Vider le panier ";
+    clearCartLink.title = 'Vider le panier ?';
+    //clearCartLink.textContent = "Vider le panier ";
 
     const clearButtonIcon = document.createElement('i');
     clearCartLink.appendChild(clearButtonIcon);
@@ -142,17 +163,34 @@ if(storedProducts == null || storedProducts.length === 0){
     });
 
     //Formulaire de commande
+    const separatorWrapper = document.createElement('div');
+    productStoredDiv.appendChild(separatorWrapper);
+    separatorWrapper.className = 'separator-wrapper'
+
+    const separator = document.createElement('div');
+    separatorWrapper.appendChild(separator);
+    separator.className = 'separator'
+
+    const separatorTitleDiv = document.createElement('div');
+    separatorWrapper.appendChild(separatorTitleDiv);
+    separatorTitleDiv.className = 'separator-title-div'
+
+    const productH2 = document.createElement('h2');
+    separatorTitleDiv.appendChild(productH2);
+    productH2.innerHTML = "Finalisez votre commande !<br>";
+    productH2.className = 'separator-wrapper-title';
+    
+    const productH2Sub = document.createElement('span');
+    separatorTitleDiv.appendChild(productH2Sub);
+    productH2Sub.textContent = '(Remplissez les champs ci-dessous)';
+
+    const separatorBis = document.createElement('div');
+    separatorWrapper.appendChild(separatorBis);
+    separatorBis.className = 'separator'
+
     const form = document.createElement('form');
     productStoredDiv.appendChild(form);
     form.className = 'order-form';
-
-    const productH2 = document.createElement('h2');
-    form.appendChild(productH2);
-    productH2.innerHTML = "Finalisez votre commande !<br>";
-    
-    const productH2Sub = document.createElement('span');
-    productH2.appendChild(productH2Sub);
-    productH2Sub.textContent = '(Remplissez les champs ci-dessous)';
 
     // Fonctions de validité prénom, nom, ville
     function isValid(value) {
@@ -177,7 +215,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const labelFirstName = document.createElement('label');
     firstNameDiv.appendChild(labelFirstName);
     labelFirstName.setAttribute('for', 'prénom');
-    labelFirstName.textContent = 'Votre prénom : ';
+    labelFirstName.textContent = 'Prénom : ';
 
     const firstName = document.createElement('input');
     firstNameDiv.appendChild(firstName);
@@ -203,7 +241,7 @@ if(storedProducts == null || storedProducts.length === 0){
     const labelLastName = document.createElement('label');
     lastNameDiv.appendChild(labelLastName);
     labelLastName.setAttribute('for', 'nom');
-    labelLastName.textContent = 'Votre nom : ';
+    labelLastName.textContent = 'Nom : ';
 
     const lastName = document.createElement('input');
     lastNameDiv.appendChild(lastName);
@@ -217,6 +255,58 @@ if(storedProducts == null || storedProducts.length === 0){
         if (isValid(lastName.value)) {
         } else {
             alert("Veuillez saisir un nom valide ; Les chiffres et les symboles (-*,#~&) ne sont pas autorisés.")
+            event.preventDefault()
+        }
+    });
+
+    // ajout formulaire "mail"
+    const mailDiv = document.createElement('div');
+    form.appendChild(mailDiv);
+    mailDiv.className = 'mail field';
+
+    const labelMail = document.createElement('label');
+    mailDiv.appendChild(labelMail);
+    labelMail.setAttribute('for', 'email');
+    labelMail.textContent = 'Adresse mail : ';
+
+    const mail = document.createElement('input');
+    mailDiv.appendChild(mail);
+    mail.setAttribute('type', 'email');
+    mail.setAttribute('class', 'input');
+    mail.name = "Adresse mail"
+    mail.required = true;
+
+    // Vérification de la validité du mail
+    mail.addEventListener("change", function (event) {
+        if (validMail(mail.value)){
+        } else {
+            event.preventDefault()
+            alert("Veuillez saisir une adresse mail valide (exemple : adresse@mail.com).");
+        }
+    });
+
+    // ajout formulaire "ville"
+    const cityDiv = document.createElement('div');
+    form.appendChild(cityDiv);
+    cityDiv.className = 'city field';
+
+    const labelCity = document.createElement('label');
+    cityDiv.appendChild(labelCity);
+    labelCity.setAttribute('for', 'ville');
+    labelCity.textContent = 'Ville : ';
+
+    const city = document.createElement('input');
+    cityDiv.appendChild(city);
+    city.setAttribute('type', 'text');
+    city.setAttribute('class', 'input');
+    city.name = "Ville"
+    city.required = true;
+
+    // Vérification de la validité de la ville
+    city.addEventListener("change", function (event) {
+        if (isValid(city.value)) {
+        } else {
+            alert("Veuillez saisir un nom de ville valide ; Les chiffres et les symboles (-*,#~&) ne sont pas autorisés.")
             event.preventDefault()
         }
     });
@@ -237,6 +327,7 @@ if(storedProducts == null || storedProducts.length === 0){
     address.setAttribute('class', 'input');
     address.name = "Adresse"
     address.required = true;
+    address.rows = 4;
 
     // Vérification de la validité de l'adresse
     address.addEventListener("change", function (event) {
@@ -244,58 +335,6 @@ if(storedProducts == null || storedProducts.length === 0){
         } else {
             event.preventDefault()
             alert("Veuillez saisir une adresse postale valide ;Les symboles (-*,#~&) ne sont pas autorisés.");
-        }
-    });
-
-    // ajout formulaire "ville"
-    const cityDiv = document.createElement('div');
-    form.appendChild(cityDiv);
-    cityDiv.className = 'city field';
-
-    const labelCity = document.createElement('label');
-    cityDiv.appendChild(labelCity);
-    labelCity.setAttribute('for', 'ville');
-    labelCity.textContent = 'Votre ville : ';
-
-    const city = document.createElement('input');
-    cityDiv.appendChild(city);
-    city.setAttribute('type', 'text');
-    city.setAttribute('class', 'input');
-    city.name = "Ville"
-    city.required = true;
-
-    // Vérification de la validité de la ville
-    city.addEventListener("change", function (event) {
-        if (isValid(city.value)) {
-        } else {
-            alert("Veuillez saisir un nom de ville valide ; Les chiffres et les symboles (-*,#~&) ne sont pas autorisés.")
-            event.preventDefault()
-        }
-    });
-
-    // ajout formulaire "mail"
-    const mailDiv = document.createElement('div');
-    form.appendChild(mailDiv);
-    mailDiv.className = 'mail field';
-
-    const labelMail = document.createElement('label');
-    mailDiv.appendChild(labelMail);
-    labelMail.setAttribute('for', 'email');
-    labelMail.textContent = 'Votre adresse mail : ';
-
-    const mail = document.createElement('input');
-    mailDiv.appendChild(mail);
-    mail.setAttribute('type', 'email');
-    mail.setAttribute('class', 'input');
-    mail.name = "Adresse mail"
-    mail.required = true;
-
-    // Vérification de la validité du mail
-    mail.addEventListener("change", function (event) {
-        if (validMail(mail.value)){
-        } else {
-            event.preventDefault()
-            alert("Veuillez saisir une adresse mail valide (exemple : adresse@mail.com).");
         }
     });
 

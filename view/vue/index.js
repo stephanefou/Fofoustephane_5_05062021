@@ -1,88 +1,80 @@
-//récupération des données du localStorage
-let storedProducts = JSON.parse(localStorage.getItem('newArticle'));
-console.log(storedProducts);
+//Actualisation du nombre de produit dans le panier au niveau de l'en-tête
+function displayQuantityInTheBasket() {
 
-/*let quantityInTheBasket =+ storedProducts.*/
-if (storedProducts == null || storedProducts.length === 0) {
-    const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
-    quantityInTheBasket.style.display = "none";
+    //Récupération des données du localStorage
+    let storedProducts = JSON.parse(localStorage.getItem('basket-content'));
+    console.log(storedProducts);
 
-} else {
-        document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
+    // si le panier est vide 
+    if (storedProducts == null || storedProducts.length === 0) {
+        const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
+        quantityInTheBasket.style.display = "none";
+    // si au moins un article est présent dans le panier 
+    } else {
+            document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
+    }
 }
 
-const getProductList =  async function() {
-    //récupération des données de l'API 
+//Affichage des éléments
+function createCardForEachProduct(products) {
+    
+    for (let i = 0; i < products.length; i++) {
+        document.getElementById("teddies").innerHTML += `
+            <article>
+                <a class="product-link">
+                    <div class="div-img">
+                        <img class="article-card__photo" src="${products[i].imageUrl}" alt="Ours en peluche brun fait main">
+                    </div>
+                    <div class="article-card__title">
+                        <h3>Ours en peluche ${products[i].name}</h3>
+                    </div>
+                    <div class="article-card__info">
+                        <p><i class="fas fa-check"></i>EN STOCK</p>
+                        <span class="article-card__price">${products[i].price/100} €</span>
+                    </div>
+                </a>
+            </article>`
+        ;
+        createProductLink(products, i);
+        //<a href="../../view/produit/produit.html?id=${products[i]._id}" title="'Ours en peluche ${products[i].name}'"></a> "à coller à la place de a, remplace la fonction createProductLink
+    }
+};
+
+function createProductLink(products, i) {
+    let productLink = document.getElementsByClassName('product-link')[i]; //index important sinon le lien n'est pas intégré, possible si tu mets un id mais il est unique. les liens seront seulement cliquable depuis devtools   
+    // récupération de l'url
+    let splitUrl = window.location.pathname.split("/");
+    let lastItem = splitUrl.pop();
+    // console.log(window.location.pathname.replace(lastItem, 'product.html'))
+    let url = window.location.origin + window.location.pathname.replace(lastItem, '../produit/produit.html');
+
+    //Création d'un objet url
+    let urlObj = new URL(url);
+    let productId = products[i]._id;
+    // Ajout du query string id
+    urlObj.searchParams.append("id", productId);
+    //linkProduct.href = urlObj;
+    productLink.href = urlObj;
+    productLink.title = 'Ours en peluche' + products[i].name;
+}
+
+//récupération de la liste des produits
+const getProductList = async function() {
     try {
         let response = await fetch('http://localhost:3000/api/teddies/');
         if (response.ok) {
             let products = await response.json();
+            createCardForEachProduct(products);
             console.log(products);
-
-            for (let product of products) {
-                document.getElementById("teddies").innerHTML += `<article>
-                                                                <a href="../../view/produit/produit.html?id=${product._id}" title="'Ours en peluche ${product.name}'">
-                                                                    <div class="div-img">
-                                                                        <img class="article-card__photo" src="${product.imageUrl}" alt="Ours en peluche brun fait main">
-                                                                    </div>
-                                                                    <div class="article-card__title">
-                                                                        <h3>Ours en peluche ${product.name}</h3>
-                                                                    </div>
-                                                                    <div class="article-card__info">
-                                                                        <p><i class="fas fa-check"></i>EN STOCK</p>
-                                                                        <span class="article-card__price">${product.price/100} €</span>
-                                                                    </div>
-                                                                </a>
-                                                            </article>`;   
-            }
-        } else {
+        } else { //En cas d'erreur de communication avec l'API
             console.error('Retour du serveur : ', response.status);
             alert('Erreur rencontrée : ' + response.status);
         } 
     } catch (error) {
         alert("Erreur : " + error);
     }
-}
+};    
 
-//appel de la fonction getTeddies
+//appel des fonctions
 getProductList();
-
-/*//Création d'articles pour chaque produit
-                const productsArticle = document.createElement('article');
-                productsDiv.appendChild(productsArticle);
-        
-                //Création d'un lien vers produit.html pour chaque article
-                const productLink = document.createElement("a");
-                productLink.href = "../../view/produit/produit.html?id=" + product._id;
-                productsArticle.appendChild(productLink);
-                productLink.setAttribute('title', "Ours en peluche" + product.name);
-
-                //Création d'un div pour l'image
-                const productImgDiv = document.createElement('div');
-                productsArticle.appendChild(productImgDiv);
-                productImgDiv.className = 'div-img';
-
-                //création image du produit
-                const productImg = document.createElement('img');
-                productImgDiv.appendChild(productImg);
-                teddyImg.setAttribute('src', product.imageUrl);
-                teddyImg.setAttribute('alt', 'Ours en peluche brun fait main');
-                productImg.className = 'article-card__photo';
-        
-                
-                
-        
-                //création div teddyRef
-                const teddiesRef = document.createElement('div');
-                productLink.appendChild(teddiesRef);
-                teddiesRef.className = 'teddies_ref';
-        
-                //création h3 de teddyRef
-                const h3TeddiesRef = document.createElement('h3');
-                teddiesRef.appendChild(h3TeddiesRef);
-                h3TeddiesRef.textContent = teddy.name;
-        
-                //création p de teddyRef
-                const pTeddiesRef = document.createElement('p');
-                teddiesRef.appendChild(pTeddiesRef);
-                pTeddiesRef.textContent = teddy.price / 100 + " €";*/
+displayQuantityInTheBasket();

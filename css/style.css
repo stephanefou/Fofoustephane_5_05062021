@@ -40,12 +40,12 @@ header #quantity-in-the-basket {
   font-weight: 600;
   color:#fff;
   padding: 1px 6px;
-  border: 0;
+  border: 3px solid #fff;
   border-radius: 15px;
-  background-color: red;
+  background-color: #0F9192;
   position: relative;
   left: 42px;
-  bottom: 8px;
+  bottom: 14px;
 }
 
 header .fa-shopping-basket {
@@ -61,6 +61,8 @@ header .panier:hover {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  font-family: "Montserrat", sans-serif;
+  font-size: 0.8em;
   height: 30px;
   background-color: #38332E;
   padding: 0 30px;
@@ -110,16 +112,6 @@ main h3 {
   font-weight: lighter;
 }
 
-.logo {
-  opacity: 0.9;
-  transform: scale(0.9);
-  transition: transform 300ms ease-in-out;
-}
-.logo:hover {
-  opacity: 1;
-  transform: scale(1);
-}
-
 footer {
   margin: auto;
   height: auto;
@@ -143,14 +135,14 @@ footer h2 {
 footer div {
   width: 150px;
   margin: 15px auto;
-  padding: 10px 30px;
+  padding: 15px 30px;
   background-color: #fff;
   text-align: center;
+  border-radius: 15px;
 }
 footer div a {
   color: #FF7E00;
   margin: auto;
-  padding-bottom: 12px;
   font-family: "Montserrat", sans-serif;
   font-size: 0.9em;
 }
@@ -178,14 +170,16 @@ footer div a:hover {
 
 .home button {
   display: flex;
+  font-family: "Montserrat", sans-serif;
+  font-size: 1em;
+  font-weight: 500;
+  height: 40px;
   margin: auto auto 30px auto;
   padding: 10px;
   border-radius: 15px;
   border: none;
   background-color: #38332E;
-  font-family: "Montserrat", sans-serif;
-  font-size: 1em;
-  font-weight: 500;
+  
   color: #fff;
   transition: background-color 300ms ease-in-out;
 }
@@ -200,13 +194,17 @@ footer div a:hover {
 article {
   width: 220px;
   height: 300px;
-  border-radius: 5px;
+  border-radius: 15px;
   background-color: #fff;
   overflow: hidden;
   box-shadow: 2px 2px 10px #e8e6eb;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
   margin-bottom: 17px;
   padding: 5px;
+}
+
+article:hover {
+  transform: scale(1.03);
 }
 
 article a {
@@ -217,6 +215,7 @@ article a {
 article img {
   width: 100%;
   height: 166px;
+  border-radius: 9px 9px 0 0;
   object-fit: cover;
 }
 
@@ -264,6 +263,8 @@ article img {
 }
 
 .div-img-product{
+  border: 10px solid #fff;
+  border-radius: 15px;
   margin-right: 30px;
   padding: 5px;
 }
@@ -306,7 +307,7 @@ article img {
   padding: 5px 0;
 }
 
-.product-info .customization-div #selection {
+.product-info .customization-div #color-selection {
   height: 40px;
   border: none;
   border-radius: 15px;
@@ -325,10 +326,6 @@ article img {
 
 .product-info #selection {
   margin-left: 10px;
-}
-
-.product-info .number-choice {
-  margin-right: 35px;
 }
 
 .product-info .button-minus, .product-info .button-plus {
@@ -369,7 +366,7 @@ input[type='text'], input[type='number'] {
 }
 
 .product-info .quantity-value {
-  width: 40px;
+  width: 60px;
   height: 40px;
   padding: 0;
 }
@@ -391,11 +388,12 @@ input[type='text'], input[type='number'] {
 
 .product-info #submit {
   width: 50%;
+  height: 40px;
   border: solid 1px #ADADAD;
   border-radius: 12px;
   color: #fff;
   font-weight: 600;
-  background-color: #8bb807;
+  background-color: #FF7E00;
   padding: 8px 10px;
   transition: background-color 25ms ease-in-out;
 }
@@ -404,6 +402,12 @@ input[type='text'], input[type='number'] {
   transform: scale(1.05);
   color: #38332E;
   font-weight: bolder;
+  background-color: #085a5a;
+}
+
+.product-info #submit:hover ~ .product-info .fa-cart-plus {
+  transform: translateX(50px);
+  color: #ADADAD;
 }
 
 .product-info #submit:active {
@@ -415,6 +419,7 @@ input[type='text'], input[type='number'] {
   font-size: 1.8em;
   color: #38332E;
   margin-right: 15px;
+  transform: translateX(0);
   transition: all 50ms ease-in-out;
 }
 
@@ -496,7 +501,7 @@ input[type='text'], input[type='number'] {
 
 .stored-product-div .total-price-div-bis .price-value {
   font-size: 1.5em;
-  margin: auto 32px auto auto;
+  margin: auto 34px auto auto;
 }
 
 .stored-product-div .total-price-div-bis button {
@@ -526,6 +531,7 @@ input[type='text'], input[type='number'] {
   color: #38332E;
   white-space: nowrap;
   width: 55%;
+  height: 50px;
   border-radius: 15px;
   background-color: #fff;
   box-shadow: 2px 2px 10px #e8e6eb;
@@ -585,9 +591,9 @@ input[type='text'], input[type='number'] {
 }
 
 .stored-product-div .separator-wrapper .separator {
-  height: 5px;
+  height: 4px;
   background-color: #0F9192;
-  border-radius: 30px;
+  border-radius: 120px;
   margin: 10px 0px;
   flex-basis: 48%;
 }
@@ -621,13 +627,15 @@ input[type='text'], input[type='number'] {
 .order-form {
   width: 50%;
   margin: 20px auto;
-  border: none;
-  border-radius: 30px;
   padding: 0 50px;
 }
 
 .order-form span {
   font-size: 0.6em;
+}
+
+.order-form textarea {
+  border-radius: 15px;
 }
 
 .order-form label {
@@ -658,7 +666,7 @@ input[type='text'], input[type='number'] {
 .order-form #valid {
   border-radius: 15px;
   border: none;
-  background-color: #0F9192;
+  background-color: #FF7E00;
   font-family: "Montserrat", sans-serif;
   text-align: center;
   font-size: 1.2em;
@@ -667,12 +675,17 @@ input[type='text'], input[type='number'] {
   margin: 10px 0 30px 0;
   padding: 0 20px;
   color: #fff;
-  transition: all 300ms ease-in-out;
+  transition: all 30ms ease-in-out;
 }
 
 .order-form #valid:hover {
   background-color: #085a5a;
   color: #ADADAD;
+}
+
+.order-form #valid:active {
+  background-color: #ADADAD;
+  color: #fff;
 }
 
 #confirmation-main {

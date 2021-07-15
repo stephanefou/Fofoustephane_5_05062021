@@ -275,6 +275,7 @@ article img {
 }
 
 .product-info {
+  font-family: "Montserrat", sans-serif;
   width: 350px;
   height: auto;
   padding: 5px;
@@ -599,6 +600,7 @@ input[type='text'], input[type='number'] {
 }
 
 .stored-product-div .separator-wrapper .separator-title-div {
+  font-family: "Montserrat", sans-serif;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -620,7 +622,7 @@ input[type='text'], input[type='number'] {
 }
 
 #main-cart .separator-title-div span {
-  font-size: 1.3em;
+  font-size: 1.2em;
   text-align: center;
 }
 

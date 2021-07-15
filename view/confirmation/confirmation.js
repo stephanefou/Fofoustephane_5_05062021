@@ -1,6 +1,6 @@
 function getOrderInformation () {
     // Récupération de l'id de la commande
-    let orderId = localStorage.getItem('responseOrder');
+    let orderId = localStorage.getItem('orderIdResponse');
     console.log(orderId);
 
     // Récupération du prix total de la commande
@@ -8,7 +8,6 @@ function getOrderInformation () {
     console.log(totalPrice);
 
     createConfirmationPage (orderId, totalPrice);
-
 }
 
 function createConfirmationPage (orderId, totalPrice) {
@@ -45,7 +44,7 @@ function createConfirmationPage (orderId, totalPrice) {
 
         setTimeout(function redirect() {
             window.location.href = '../vue/index.html';
-        }, 8000);
+        }, 7000);
 
     } else {
         //création des éléments html de la page confirmation
@@ -104,14 +103,9 @@ function createConfirmationPage (orderId, totalPrice) {
         homeLink.textContent = "< Continuer mes achats";
 
         // Nettoyage du localStorage
-            localStorage.clear();
+        localStorage.clear();
     }
 }
-
-// Nettoyage du localStorage
-/*function resetOrder() {
-    localStorage.clear();
-}*/
 
 function redirect() {
     window.location.href = '../vue/index.html';

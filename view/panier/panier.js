@@ -1,13 +1,3 @@
-//Actualisation du nombre de produit dans le panier au niveau de l'en-tête
-
-//Création d'un tableau de stockage des prix
-//const arrayPrice = [];
-//Création du tableau qui va être envoyé au serveur avec les id des produits
- /*[]; //Il est préférable de récupérer avec fetch les produits sélectionnés car si tu les récupères avec le local storage, les infos de products seront effacés au profit de productId...
-    for (storedProduct of storedProducts) {
-        let productsId = storedProduct.productId;
-        products.push(productsId);
-    };*/
 //Création de l'objet contact contenant les données du formulaire qui va être envoyé au serveur
 let contact = {};
 //Création d'une classe pour structurer l'objet contact
@@ -18,12 +8,12 @@ class ContactData {
         this.address = address;
         this.city = city;
         this.email = email;
-        
 
         console.log(ContactData);
     }    
 }
 
+//Actualisation du nombre de produit dans le panier au niveau de l'en-tête
 function displayQuantityInTheBasket() {
 
     //Récupération des données du localStorage
@@ -33,6 +23,7 @@ function displayQuantityInTheBasket() {
     createBasket(storedProducts);
 }
 
+//Affichage des éléments HTML du panier
 function createBasket(storedProducts) {
     const cartMain = document.getElementById('main-cart');
     const productStoredDiv = document.createElement('div');
@@ -293,9 +284,8 @@ function createBasket(storedProducts) {
         homeLink.title = '< Retourner à la liste des produits';
         homeLink.textContent = "< Continuer mes achats";
 
-        if (controlDataInformation()) {
-            validateForm(storedProducts);//sans le point virgule ça ne marche pas!!
-        }
+        //if (controlDataInformation()) {
+        validateForm(storedProducts); /*sans le point virgule ça ne marche pas!!*/
     }
 }
 
@@ -336,14 +326,14 @@ function clearbasket(clearCart) {
         event.preventDefault();
         localStorage.removeItem('basket-content');
         localStorage.removeItem('totalPrice');
-        alert('Le panier a été vidé !')
+        alert('Le panier a été vidé !');
         window.location.href = "panier.html";
     })
 }
 
 //Tableau de prix des articles choisis
 function addArticlePrice(storedProducts) {
-    let arrayPrice = []
+    let arrayPrice = [];
     let result;
     for (storedProduct of storedProducts) {
         let articlePrice = storedProduct.productPrice;
@@ -369,12 +359,11 @@ function totalPriceOrder(arrayPrice) {
 
 //Validation des données du formulaire
 function validateForm(storedProducts) {
-    let buttonValidation = document.getElementById('valid');/*si Classname est utilisé, index indispensable car retourne un tableau, ici id est préférable*/
+    let buttonValidation = document.getElementById('valid'); /*si Classname est utilisé, index indispensable car retourne un tableau, ici id est préférable*/
     buttonValidation.addEventListener("click", function(event) {
         event.preventDefault();
         
         getFormData ();
-        productsToSend(storedProducts);
 
         let products = productsToSend(storedProducts);
         let dataInformationOrder;
@@ -403,12 +392,12 @@ function controlDataInformation() {
 
     // Fonctions de validité mail
     function validMail(value) {
-        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value)
+        return /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(value);
     }
 
     // Fonctions de validité adresse
     function validAddress(value) {
-        return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value)
+        return /^[A-Z-a-z-0-9\s]{5,80}$/.test(value);
     }
 
     // Vérification de la validité du prénom
@@ -457,8 +446,8 @@ function controlDataInformation() {
         && validMail(email.value)
         && validAddress(address.value)
         && isValid(city.value)) {
-            return true ;
-            //validateForm(storedProduct);
+            return true;
+            /*validateForm(storedProduct);*/
     }
     else {
         return false;
@@ -502,7 +491,7 @@ async function postOrder(dataInformationOrder) {
         if (response.ok) {
             let data = await response.json();
             console.log(data.orderId);
-            localStorage.setItem("responseOrder", data.orderId);
+            localStorage.setItem("orderIdResponse", data.orderId);
             window.location = "../confirmation/confirmation.html";
             localStorage.removeItem("basket-content");
         } else {
@@ -515,3 +504,4 @@ async function postOrder(dataInformationOrder) {
 }
 
 displayQuantityInTheBasket();
+controlDataInformation()

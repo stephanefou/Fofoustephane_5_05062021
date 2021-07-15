@@ -284,8 +284,7 @@ function createBasket(storedProducts) {
         homeLink.title = '< Retourner à la liste des produits';
         homeLink.textContent = "< Continuer mes achats";
 
-        //if (controlDataInformation()) {
-        validateForm(storedProducts); /*sans le point virgule ça ne marche pas!!*/
+        validateForm(storedProducts);
     }
 }
 
@@ -355,26 +354,6 @@ function totalPriceOrder(arrayPrice) {
     const reducer = (accumulator, currentValue) => accumulator + currentValue;
     totalPrice = arrayPrice.reduce(reducer, 0);*/
     return totalPrice;
-}
-
-//Validation des données du formulaire
-function validateForm(storedProducts) {
-    let buttonValidation = document.getElementById('valid'); /*si Classname est utilisé, index indispensable car retourne un tableau, ici id est préférable*/
-    buttonValidation.addEventListener("click", function(event) {
-        event.preventDefault();
-        
-        getFormData ();
-
-        let products = productsToSend(storedProducts);
-        let dataInformationOrder;
-            dataInformationOrder = {
-                contact,
-                products,
-            };
-
-            console.log(dataInformationOrder);
-            postOrder(dataInformationOrder);
-    })
 }
 
 //Contrôle de la validité du formulaire et de la validation de la commande
@@ -452,6 +431,29 @@ function controlDataInformation() {
     else {
         return false;
     }
+}
+
+//Validation des données du formulaire
+function validateForm(storedProducts) {
+    let buttonValidation = document.getElementById('valid'); /*si Classname est utilisé, index indispensable car retourne un tableau, ici id est préférable*/
+    buttonValidation.addEventListener("click", function(event) {
+        event.preventDefault();
+        
+        if (controlDataInformation()) {
+
+            getFormData ();
+
+            let products = productsToSend(storedProducts);
+            let dataInformationOrder;
+                dataInformationOrder = {
+                    contact,
+                    products,
+                };
+
+            console.log(dataInformationOrder);
+            postOrder(dataInformationOrder);
+        }
+    })
 }
 
 //Intégration des données du formulaire dans l'objet contact

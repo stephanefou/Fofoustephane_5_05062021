@@ -53,14 +53,18 @@ async function getSelectedProduct(productId) {
 function createProductCard(selectedProduct) {
 
     // Création des éléments html de la page produit
-    const productMain = document.getElementById('produit');
+    const productMain = document.getElementById('main-product');
 
     // Création de la div du produit
-    const productDivImg = document.createElement('div');
-    productMain.appendChild(productDivImg);
-    productDivImg.className = 'div-img-product';
+    const productCard = document.createElement('div');
+    productMain.appendChild(productCard);
+    productCard.className = 'product-card';
 
     //Ajout de l'image à la div du produit
+    const productDivImg = document.createElement('div');
+    productCard.appendChild(productDivImg);
+    productDivImg.className = 'div-img-product';
+
     const productImg = document.createElement('img');
     productDivImg.appendChild(productImg);
     productImg.className = 'product-photo';
@@ -70,7 +74,7 @@ function createProductCard(selectedProduct) {
 
     //Création de la div d'information du produit
     const productDivInfo = document.createElement('div');
-    productMain.appendChild(productDivInfo);
+    productCard.appendChild(productDivInfo);
     productDivInfo.className = 'product-info';
 
     // Ajout du nom du produit en titre H2
@@ -157,6 +161,20 @@ function createProductCard(selectedProduct) {
     const addToCartIcon = document.createElement('i');
     submitDiv.appendChild(addToCartIcon);
     addToCartIcon.className = 'fas fa-cart-plus';
+
+    // Bouton de retour sur la page principale
+    const home = document.createElement('div');
+    productMain.appendChild(home);
+    home.className = 'home';
+
+    const homeButton = document.createElement('button');
+    home.appendChild(homeButton);
+
+    const homeLink = document.createElement('a');
+    homeButton.appendChild(homeLink);
+    homeLink.href = '../vue/index.html';
+    homeLink.title = '< Retourner à la liste des produits';
+    homeLink.textContent = "< Continuer mes achats";
 
     addToCart(addToCartButton, selectedProduct, productQuantityInput);
 }

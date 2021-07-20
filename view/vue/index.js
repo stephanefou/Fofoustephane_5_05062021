@@ -12,7 +12,7 @@ function displayQuantityInTheBasket() {
 
         //suppression du marquage de session | fin de session
         localStorage.removeItem('markup');
-        
+
     // si au moins un article est présent dans le panier 
     } else {
             document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
@@ -23,7 +23,7 @@ function displayQuantityInTheBasket() {
 function createCardForEachProduct(products) {
     
     for (let i = 0; i < products.length; i++) {
-        document.getElementById("teddies").innerHTML += `
+        document.getElementsByClassName("list-div")[0].innerHTML += `
             <article>
                 <a class="product-link">
                     <div class="div-img">

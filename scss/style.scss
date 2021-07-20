@@ -152,12 +152,8 @@ footer {
 
 
 
-#teddies {
-    padding: 0 150px;
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    margin-top: 45px;
+#main-list {
+    @include flex_column;
     div p {
         font-family: $second-font;
         font-size: 0.8em;
@@ -165,6 +161,13 @@ footer {
     div span {
         font-family: $second-font;
         font-size: 1em;
+    }
+    .list-div {
+        display: flex;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        padding: 0 150px;
+        margin-top: 45px; 
     }
 }
 
@@ -239,128 +242,128 @@ article {
     }
 }
 
-.main-product {
-  padding:20px 0;
-  background-color: #fff;
-}
 
-#produit {
-    @include flex_center;
-    margin: 45px 0;
-    .div-img-product {
-        border: 10px solid #fff;
-        border-radius: 15px;
-        margin-right: 30px;
-        padding: 5px;
-    }
-    .product-photo {
-        width: 400px;
-        height: auto;
-    }
-    .product-info {
-        font-family: $main-font;
-        width: 350px;
-        height: auto;
-        padding: 5px;
-        h2 {
-            text-align: start;
-            font-weight: 600;
+
+#main-product {
+    @include flex_column;
+    .product-card {
+        @include flex_center;
+        margin: 45px 0;
+        .div-img-product {
+            border: 10px solid #fff;
+            border-radius: 15px;
+            margin-right: 30px;
+            padding: 5px;
         }
-        .description {
-            text-align: justify;
-            font-size: 15px;
+        .product-photo {
+            width: 400px;
+            height: auto;
         }
-        .product-price {
-            color: $main-color;
-            text-align: end;
-            font-size: 2.5em;
-            font-weight: 600;
-            margin: 10px 10px;
-        }
-        form {
-            @include flex_column;
-            .customization-div {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                padding: 5px 0;
-                label {/*********************************************/
-                    font-size: 1.3em;
-                    color: $secondary-color;
-                    margin-right: 7px;
-                }
-                .color-choice {
-                    #color-selection {
-                        height: 40px;
-                        border: none;
-                        border-radius: 15px;
-                        padding-left: 10px;
-                    }
-                }
-                .number-choice {
-                    .button-minus, .button-plus {
-                        color: $secondary-color;
-                        padding: 4px 5px 2px 5px;
-                        border: solid 1px $secondary-color;
-                        border-radius: 15px;
-                        margin: 0 4px;
-                        &:hover {
-                            color: #fff;
-                            background-color: $main-color;
-                            border: solid 1px $main-color;
-                        }
-                        :active {
-                            color: #fff;
-                            background-color: #adadad;
-                            border: solid 1px #adadad;
-                        }
-                    }
-                    .quantity-value {
-                        width: 60px;
-                        height: 40px;
-                        padding: 0;
-                        &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
-                        -webkit-appearance: none;
-                        margin: 0;
-                        }
-                    }
-                }
-            }
-        }
-        .submit-div {
-            @include flex_center;
-            align-items: center;
-            margin-top: 20px;
-            padding: 5px 0;
-            #submit {
-                width: 50%;
-                height: 40px;
-                border: solid 1px #ADADAD;
-                border-radius: 12px;
-                color: #fff;
+        .product-info {
+            font-family: $main-font;
+            width: 350px;
+            height: auto;
+            padding: 5px;
+            h2 {
+                text-align: start;
                 font-weight: 600;
-                background-color: $section-color;
-                padding: 8px 10px;
-                transition: background-color 25ms ease-in-out;
-                &:hover {
-                    transform: scale(1.05);
-                    color: #38332E;
-                    font-weight: bolder;
-                    background-color: $secondary-color;
-                }
-                :active {
-                    background-color: #ADADAD;
-                    color: #fff;
+            }
+            .description {
+                text-align: justify;
+                font-size: 15px;
+            }
+            .product-price {
+                color: $main-color;
+                text-align: end;
+                font-size: 2.5em;
+                font-weight: 600;
+                margin: 10px 10px;
+            }
+            form {
+                @include flex_column;
+                .customization-div {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    padding: 5px 0;
+                    label {/*********************************************/
+                        font-size: 1.3em;
+                        color: $secondary-color;
+                        margin-right: 7px;
+                    }
+                    .color-choice {
+                        #color-selection {
+                            height: 40px;
+                            border: none;
+                            border-radius: 15px;
+                            padding-left: 10px;
+                        }
+                    }
+                    .number-choice {
+                        .button-minus, .button-plus {
+                            color: $secondary-color;
+                            padding: 4px 5px 2px 5px;
+                            border: solid 1px $secondary-color;
+                            border-radius: 15px;
+                            margin: 0 4px;
+                            &:hover {
+                                color: #fff;
+                                background-color: $main-color;
+                                border: solid 1px $main-color;
+                            }
+                            &:active {
+                                color: #fff;
+                                background-color: #adadad;
+                                border: solid 1px #adadad;
+                            }
+                        }
+                        .quantity-value {
+                            width: 60px;
+                            height: 40px;
+                            padding: 0;
+                            &::-webkit-outer-spin-button, &::-webkit-inner-spin-button {
+                            -webkit-appearance: none;
+                            margin: 0;
+                            }
+                        }
+                    }
                 }
             }
-        }
-        .fa-cart-plus {
-        font-size: 1.8em;
-        color: #38332E;
-        margin-right: 15px;
-        position: relative;
-        left: 15px;
+            .submit-div {
+                @include flex_center;
+                align-items: center;
+                margin-top: 20px;
+                padding: 5px 0;
+                #submit {
+                    width: 50%;
+                    height: 40px;
+                    border: solid 1px #ADADAD;
+                    border-radius: 12px;
+                    color: #fff;
+                    font-weight: 600;
+                    background-color: $section-color;
+                    padding: 8px 10px;
+                    transition: background-color 25ms ease-in-out;
+                    &:hover {
+                        transform: scale(1.05);
+                        color: #38332E;
+                        font-weight: bolder;
+                        background-color: $secondary-color;
+                    }
+                    :active {
+                        background-color: #ADADAD;
+                        color: #fff;
+                    }
+                }
+            }
+            .fa-cart-plus {
+            font-size: 1.8em;
+            color: #38332E;
+            margin-right: 15px;
+            position: relative;
+            left: 15px;
 
+            }
         }
     }
 }
@@ -616,7 +619,7 @@ input[type='text'], input[type='number'] {
         margin: auto;
         p {
             font-family: $second-font;
-            margin-bottom: 80px;
+            margin-bottom: 70px;
         }
     }
     .confirmation-order {
@@ -674,3 +677,7 @@ input[type='text'], input[type='number'] {
 .product-info #submit:hover+.fa-cart-plus {/*.product-info .fa-cart-^mus ne marche pas en tant que frère*/
     animation: headshake 150ms cubic-bezier(.4,.1,.6,.9) 3; /*animation-iteration-count =2 est directement intégré dans la propriété raccourcie animation:*/
 }
+
+
+
+@import "./utils/_responsive.scss";

@@ -147,16 +147,16 @@ function createProductCard(selectedProduct) {
     form.appendChild(submitDiv);
     submitDiv.className = 'submit-div';
 
-    const addToCartIcon = document.createElement('i');
-    submitDiv.appendChild(addToCartIcon);
-    addToCartIcon.className = 'fas fa-cart-plus';
-
     let addToCartButton = document.createElement('button');
     submitDiv.appendChild(addToCartButton);
     addToCartButton.type = 'submit';
     addToCartButton.name = 'addToCart';
     addToCartButton.id = 'submit';
     addToCartButton.textContent = "AJOUTER AU PANIER";
+
+    const addToCartIcon = document.createElement('i');
+    submitDiv.appendChild(addToCartIcon);
+    addToCartIcon.className = 'fas fa-cart-plus';
 
     addToCart(addToCartButton, selectedProduct, productQuantityInput);
 }
@@ -257,6 +257,10 @@ function addToCart (addToCartButton, selectedProduct, productQuantityInput) {
             window.location.href = "../vue/index.html";
         }
         document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
+
+        // Création d'un marquage d'indication de session active
+        let markup = ["open", "classrooms", "projet", "6"];
+        localStorage.setItem('markup', JSON.stringify(markup));
     })
 }
 

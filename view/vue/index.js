@@ -9,6 +9,10 @@ function displayQuantityInTheBasket() {
     if (storedProducts == null || storedProducts.length === 0) {
         const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
         quantityInTheBasket.style.display = "none";
+
+        //suppression du marquage de session | fin de session
+        localStorage.removeItem('markup');
+        
     // si au moins un article est présent dans le panier 
     } else {
             document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;

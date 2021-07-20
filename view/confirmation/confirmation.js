@@ -7,11 +7,18 @@ function getOrderInformation () {
     let totalPrice = localStorage.getItem('totalPrice');
     console.log(totalPrice);
 
-    createConfirmationPage (orderId, totalPrice);
+    // Récupération de l'information de session active
+    let markup = localStorage.getItem('markup');
+
+    createConfirmationPage (orderId, totalPrice, markup);
 }
 
-function createConfirmationPage (orderId, totalPrice) {
+function createConfirmationPage (orderId, totalPrice, markup) {
     // si le panier est vide, aucune données dans le local storage
+    if(markup == null || markup === 0) {
+        window.location.href = '../vue/index.html';
+    }
+
     if(totalPrice == null || totalPrice === 0) {
         
         const confirmationMain = document.getElementById('confirmation-main');
@@ -45,6 +52,8 @@ function createConfirmationPage (orderId, totalPrice) {
         setTimeout(function redirect() {
             window.location.href = '../vue/index.html';
         }, 7000);
+        //suppression du marquage de session | fin de session
+        localStorage.removeItem('markup');
 
     } else {
         //création des éléments html de la page confirmation
@@ -80,13 +89,21 @@ function createConfirmationPage (orderId, totalPrice) {
 
         const orderIdResume = document.createElement('p');
         orderResumeDiv.appendChild(orderIdResume);
-        orderIdResume.textContent = "Numéro de commande : " + orderId;
+        orderIdResume.textContent = "Numéro de commande : ";
         orderIdResume.className = "order-id-resume";
+
+        const orderIdDisplay = document.createElement('span');
+        orderIdResume.appendChild(orderIdDisplay);
+        orderIdDisplay.textContent = orderId;
 
         const totalPriceResume = document.createElement('p');
         orderResumeDiv.appendChild(totalPriceResume);
-        totalPriceResume.textContent = "Montant de votre commande : " + totalPrice;
+        totalPriceResume.textContent = "Montant de votre commande : ";
         totalPriceResume.className = "total-price-resume";
+
+        const confirmationPrice = document.createElement('span');
+        totalPriceResume.appendChild(confirmationPrice);
+        confirmationPrice.textContent = totalPrice;
 
         // Bouton de retour à la page principale
         const home = document.createElement('div');
@@ -103,7 +120,9 @@ function createConfirmationPage (orderId, totalPrice) {
         homeLink.textContent = "< Continuer mes achats";
 
         // Nettoyage du localStorage
-        localStorage.clear();
+        localStorage.removeItem('basket-content');
+        localStorage.removeItem('totalPrice');
+        localStorage.removeItem('orderIdResponse');
     }
 }
 

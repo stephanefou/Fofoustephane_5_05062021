@@ -48,10 +48,11 @@ function createConfirmationPage (orderId, totalPrice, markup) {
         homeLink.href = '../vue/index.html';
         homeLink.title = '< Retourner à la liste des produits';
         homeLink.textContent = "< Continuer mes achats";
-
-        setTimeout(function redirect() {
+        
+        window.location.href = '../vue/index.html';
+        /*setTimeout(function redirect() {
             window.location.href = '../vue/index.html';
-        }, 7000);
+        }, 7000);*/
         //suppression du marquage de session | fin de session
         localStorage.removeItem('markup');
 

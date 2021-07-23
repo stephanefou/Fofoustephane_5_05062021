@@ -1,20 +1,3 @@
-//Actualisation du nombre de produit dans le panier au niveau de l'en-tête
-function displayQuantityInTheBasket() {
-    
-    //Récupération des données du localStorage
-    let storedProducts = JSON.parse(localStorage.getItem('basket-content'));
-    console.log(storedProducts);
-
-    // si le panier est vide 
-    if (storedProducts == null || storedProducts.length === 0) {
-        const quantityInTheBasket = document.getElementById('quantity-in-the-basket');
-        quantityInTheBasket.style.display = "none";
-
-    } else {
-            document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
-    }
-}
-
 //Création d'une classe pour structurer le tableau product
 class Product {
     constructor(selectedProduct, selectedColors, productQuantityInput) {
@@ -32,7 +15,7 @@ function getProductIdFromURL() {
     console.log(productId);
     getSelectedProduct (productId);
 }
-
+/*retourner getProductIdFromURL !!! éviter d'appeler une fonction à la fin d'une autre*/
 async function getSelectedProduct(productId) {
     try {
         let response = await fetch("http://localhost:3000/api/teddies/" + productId);

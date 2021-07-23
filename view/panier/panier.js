@@ -1,3 +1,6 @@
+//Récupération des données du localStorage
+let storedProducts = JSON.parse(localStorage.getItem('basket-content'));
+console.log(storedProducts);
 //Création de l'objet contact contenant les données du formulaire qui va être envoyé au serveur
 let contact = {};
 //Création d'une classe pour structurer l'objet contact
@@ -13,18 +16,9 @@ class ContactData {
     }    
 }
 
-//Actualisation du nombre de produit dans le panier au niveau de l'en-tête
-function displayQuantityInTheBasket() {
-
-    //Récupération des données du localStorage
-    let storedProducts = JSON.parse(localStorage.getItem('basket-content'));
-    console.log(storedProducts);
-
-    createBasket(storedProducts);
-}
-
 //Affichage des éléments HTML du panier
 function createBasket(storedProducts) {
+
     const cartMain = document.getElementById('main-cart');
     const productStoredDiv = document.createElement('div');
     cartMain.appendChild(productStoredDiv);
@@ -60,10 +54,10 @@ function createBasket(storedProducts) {
         homeLink.textContent = "< Continuer mes achats";
 
     } else {
-        // si des éléments sont présents dans le panier : récupération des éléments du panier
+        // si au moins un article est présent dans le panier
         document.getElementById('quantity-in-the-basket').innerHTML =+ storedProducts.length;
 
-        //Un numéro sera attribué à chaqu div productPrice ci-dessous, cela servira à la suppression unitaire
+        //Un numéro sera attribué à chaque div productPrice ci-dessous, cela servira à la suppression unitaire
         let i = 0;
         
         for (storedProduct of storedProducts) {
@@ -505,5 +499,5 @@ async function postOrder(dataInformationOrder) {
     } 
 }
 
-displayQuantityInTheBasket();
+createBasket(storedProducts);
 controlDataInformation()
